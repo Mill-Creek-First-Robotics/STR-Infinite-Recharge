@@ -17,6 +17,7 @@ package frc.robot;
  */
 public final class Constants {
   // Talon IDs
+  // remember to assign port numbers
   public static final int DRIVETRAIN_LEFT_FRONT_TALON;
   public static final int DRIVETRAIN_LEFT_BACK_TALON;
   public static final int DRIVETRAIN_RIGHT_FRONT_TALON;
