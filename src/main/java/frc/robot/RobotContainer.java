@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -9,9 +9,20 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.TurnToAngleProfiled;
+import frc.robot.subsystems.DriveSubsystem;
+
+import static edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -20,12 +31,11 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  // The robot's subsystems
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
+  // The driver's controller
+  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -33,6 +43,16 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    // Configure default commands
+    // Set the default drive command to split-stick arcade drive
+    m_robotDrive.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new RunCommand(() -> m_robotDrive
+            .arcadeDrive(m_driverController.getY(GenericHID.Hand.kLeft),
+                         m_driverController.getX(GenericHID.Hand.kRight)), m_robotDrive));
+
   }
 
   /**
@@ -42,6 +62,31 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Drive at half speed when the right bumper is held
+    new JoystickButton(m_driverController, Button.kBumperRight.value)
+        .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
+        .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+
+    // Stabilize robot to drive straight with gyro when left bumper is held
+    new JoystickButton(m_driverController, Button.kBumperLeft.value).whenHeld(new PIDCommand(
+        new PIDController(DriveConstants.kStabilizationP, DriveConstants.kStabilizationI,
+                          DriveConstants.kStabilizationD),
+        // Close the loop on the turn rate
+        m_robotDrive::getTurnRate,
+        // Setpoint is 0
+        0,
+        // Pipe the output to the turning controls
+        output -> m_robotDrive.arcadeDrive(m_driverController.getY(GenericHID.Hand.kLeft), output),
+        // Require the robot drive
+        m_robotDrive));
+
+    // Turn to 90 degrees when the 'X' button is pressed, with a 5 second timeout
+    new JoystickButton(m_driverController, Button.kX.value)
+        .whenPressed(new TurnToAngle(90, m_robotDrive).withTimeout(5));
+
+    // Turn to -90 degrees with a profile when the 'A' button is pressed, with a 5 second timeout
+    new JoystickButton(m_driverController, Button.kA.value)
+        .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
   }
 
 
@@ -51,7 +96,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // no auto
+    return new InstantCommand();
   }
 }
