@@ -2,10 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:16.04
+      - image: ubuntu:18.04
     steps:
       - checkout
-      - run: 
+      - run:
           name: Get apt-add-repository
           command: apt update && apt install software-properties-common python-software-properties -y
       - run:
