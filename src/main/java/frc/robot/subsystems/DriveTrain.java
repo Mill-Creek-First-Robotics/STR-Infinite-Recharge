@@ -19,26 +19,26 @@ import frc.robot.Constants;
 public class DriveTrain extends SubsystemBase {
   // The motors on the left side of the drive.
   private final SpeedControllerGroup m_leftMotors =
-      new SpeedControllerGroup(new WPI_TalonSRX(Constants.kLeftMotor1Port),
-                               new WPI_TalonSRX(Constants.kLeftMotor2Port));
+      new SpeedControllerGroup(new WPI_TalonSRX(Constants.LEFT_FRONT_MOTOR),
+                               new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
 
   // The motors on the right side of the drive.
   private final SpeedControllerGroup m_rightMotors =
-      new SpeedControllerGroup(new WPI_TalonSRX(DriveConstants.kRightMotor1Port),
-                               new WPI_TalonSRX(DriveConstants.kRightMotor2Port));
+      new SpeedControllerGroup(new WPI_TalonSRX(Constants.RIGHT_FRONT_MOTOR),
+                               new WPI_TalonSRX(Constants.RIGHT_BACK_MOTOR));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
   private final Encoder m_leftEncoder =
-      new Encoder(DriveConstants.kLeftEncoderPorts[0], DriveConstants.kLeftEncoderPorts[1],
-                  DriveConstants.kLeftEncoderReversed);
+      new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
+                  Constants.kLeftEncoderReversed);
 
   // The right-side drive encoder
   private final Encoder m_rightEncoder =
-      new Encoder(DriveConstants.kRightEncoderPorts[0], DriveConstants.kRightEncoderPorts[1],
-                  DriveConstants.kRightEncoderReversed);
+      new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
+                  Constants.kRightEncoderReversed);
 
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
@@ -48,8 +48,8 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     // Sets the distance per pulse for the encoders
-    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
   }
 
   /**
@@ -60,6 +60,18 @@ public class DriveTrain extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot) {
     m_drive.arcadeDrive(fwd, rot);
+  }
+
+  /**
+   * Tank drive setting for robot coltrols
+   * 
+   * @param left input for left joystick
+   * @param right input for right joystick
+   * @param speed input for low/high speed
+   */
+  public void tankDrive(double left, double right, boolean speed)
+  {
+    m_drive.tankDrive(left, right, speed);
   }
 
   /**
@@ -119,7 +131,7 @@ public class DriveTrain extends SubsystemBase {
    * @return the robot's heading in degrees, from 180 to 180
    */
   public double getHeading() {
-    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
   }
 
   /**
@@ -128,6 +140,6 @@ public class DriveTrain extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
    */
   public double getTurnRate() {
-    return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    return m_gyro.getRate() * (Constants.kGyroReversed ? -1.0 : 1.0);
   }
 }
