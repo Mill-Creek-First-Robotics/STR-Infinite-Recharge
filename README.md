@@ -4,7 +4,7 @@
 
 ## Build Status:
 
-[![CircleCI](https://circleci.com/gh/Mill-Creek-First-Robotics/STR-Infinite-Recharge/tree/master.svg?style=svg)](https://circleci.com/gh/Mill-Creek-First-Robotics/STR-Infinite-Recharge/tree/master){:target="_blank"}
+[![CircleCI](https://circleci.com/gh/Mill-Creek-First-Robotics/STR-Infinite-Recharge/tree/master.svg?style=svg)](https://circleci.com/gh/Mill-Creek-First-Robotics/STR-Infinite-Recharge/tree/master)
 
 
 [//]: <> (This is a secret message from the other side.)
