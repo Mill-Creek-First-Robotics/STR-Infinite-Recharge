@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+<<<<<<< HEAD
 =======
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -55,6 +56,7 @@ public class DriveTrain extends SubsystemBase {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+=======
 import static frc.robot.Constants;
 
 public class DriveTrain extends PIDSubsystem
