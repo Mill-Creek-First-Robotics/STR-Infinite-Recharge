@@ -23,6 +23,13 @@ package frc.robot;
  right side: 3 2
  */
 public final class Constants {
+
+  public static final int SOLENOID1 = 4;
+  public static final int SOLENOID2 = 5;
+  public static final int SOLENOID3 = 6;
+  public static final int SOLENOID4 = 7;
+  public static final int SOLENOID54 = 8;
+
   
   public static final int LEFT_FRONT_MOTOR = 0;
   public static final int LEFT_BACK_MOTOR = 1;
