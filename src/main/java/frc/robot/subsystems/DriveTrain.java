@@ -6,26 +6,23 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
-<<<<<<< HEAD
-=======
+
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
->>>>>>> ab0e83dea656bb0f39b9520d45f4703123e0b00f
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   // The motors on the left side of the drive.
   private final SpeedControllerGroup m_leftMotors =
-      new SpeedControllerGroup(new WPI_TalonSRX(Constants.LEFT_FRONT_MOTOR),
+      new SpeedControllerGroup(new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR),
                                new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
 
   // The motors on the right side of the drive.
@@ -56,39 +53,17 @@ public class DriveTrain extends SubsystemBase {
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-=======
-import static frc.robot.Constants;
-
-public class DriveTrain extends PIDSubsystem
-{
-  WPI_TalonSRX kLeftMotor1;
-  WPI_TalonSRX kLeftMotor2;
-  WPI_TalonSRX kRightMotor1;
-  WPI_TalonSRX kRightMotor2;
-  public DifferentialDrive m_Drive;
-  private double m_MotorSens = -0.8f;
-  
-  public DriveTrain()
-  {
-    super("Turn", 1.0, 0.0, 0.0);
-    kLeftMotor1 = new WPI_TalonSRX(kLeftMotor1Port);
-    kLeftMotor2 = new WPI_TalonSRX(kLeftMotor2Port);
-    kRightMotor1 = new WPI_TalonSRX(kRightMotor1Port);
-    kRightMotor2 = new WPI_TalonSRX(kRightMotor2Port);
-    
-    // setPercentTolerance(5.0);
->>>>>>> ab0e83dea656bb0f39b9520d45f4703123e0b00f
   }
   
-  @Override
+  //@Override
   public void initDefaultCommand()
   {
-      SpeedControllerGroup m_leftMotorGroup = new SpeedControllerGroup(leftFrontTalon, leftBackTalon);
-      SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(rightFrontTalon, rightBackTalon);
+      SpeedControllerGroup m_leftMotorGroup = new SpeedControllerGroup(m_leftMotors);
+      SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(m_rightMotors);
       
-      m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
+      DifferentialDrive m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
 
-<<<<<<< HEAD
+  }
   /**
    * Drives the robot using arcade controls.
    *
@@ -107,15 +82,6 @@ public class DriveTrain extends PIDSubsystem
    * @param speed input for low/high speed
    */
   public void tankDrive(double left, double right, boolean speed)
-=======
-      // Set the default command for a subsystem here.
-      // setDefaultCommand(new MySpecialCommand());
-      setDefaultCommand(new Drive());
-   }
-   
-  @Override
-  public void periodic()
->>>>>>> ab0e83dea656bb0f39b9520d45f4703123e0b00f
   {
     m_drive.tankDrive(left, right, speed);
   }
