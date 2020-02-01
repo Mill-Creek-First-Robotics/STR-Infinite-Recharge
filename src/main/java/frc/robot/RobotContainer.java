@@ -51,8 +51,8 @@ public class RobotContainer {
         // A split-stick arcade command, with forward/backward controlled by the left
         // hand, and turning controlled by the right.
         new RunCommand(() -> m_robotDrive
-            .arcadeDrive(m_rightJoystick.getY(GenericHID.Hand.kLeft),
-                         m_rightJoystick.getX(GenericHID.Hand.kRight)), m_robotDrive));
+            .arcadeDrive(m_rightJoystick.getY(),
+                         m_rightJoystick.getX()), m_robotDrive));
 
   }
 
@@ -64,12 +64,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Drive at half speed when the right bumper is held
-    new JoystickButton(m_rightJoystick, Button.kBumperRight.value)
+    new JoystickButton(m_rightJoystick, 12)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
     // Stabilize robot to drive straight with gyro when left bumper is held
-    new JoystickButton(m_rightJoystick, Button.kBumperLeft.value).whenHeld(new PIDCommand(
+    new JoystickButton(m_rightJoystick, 4).whenHeld(new PIDCommand(
         new PIDController(Constants.kStabilizationP, Constants.kStabilizationI,
                           Constants.kStabilizationD),
         // Close the loop on the turn rate

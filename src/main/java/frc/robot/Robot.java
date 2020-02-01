@@ -21,10 +21,10 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private static RobotContainer m_robotContainer;
   public static DriveTrain m_driveTrain;
-  public Pneumatics m_pneumatics;
-  public BallShooter m_ballShooter;
+  public static Pneumatics m_pneumatics;
+  public static BallShooter m_ballShooter;
 
   /**
    * This function is run when the robot is first started up and should be used for any
