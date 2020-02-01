@@ -8,12 +8,9 @@
 package frc.robot;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * Class for holding all constants for use throughout the robot code
+ * 
+ * Mainly hardware ports listed
  */
 
  /*NOTE 4 L8R
@@ -24,18 +21,27 @@ package frc.robot;
  */
 public final class Constants {
 
+  //Pneumatic pistons
   public static final int SOLENOID1 = 4;
   public static final int SOLENOID2 = 5;
   public static final int SOLENOID3 = 6;
   public static final int SOLENOID4 = 7;
   public static final int SOLENOID54 = 8;
 
-  
+  //Motors corresponding to the drivetrain
   public static final int LEFT_FRONT_MOTOR = 0;
   public static final int LEFT_BACK_MOTOR = 1;
   public static final int RIGHT_FRONT_MOTOR = 2;
   public static final int RIGHT_BACK_MOTOR = 3;
 
+  //Motors having to do with the shooting system
+  public static final int MOTOR_LAUNCHER_LEFT = 4;
+  public static final int MOTOR_LAUNCHER_RIGHT = 5;
+  public static final int MOTOR_INTAKE_LEFT = 6;
+  public static final int MOTOR_INTAKE_RIGHT = 7;
+  public static final int MOTOR_CONVEYOR = 8;
+
+  //encoder stuff - - Change names when needed
   public static final int[] kLeftEncoderPorts = new int[]{0, 1};
   public static final int[] kRightEncoderPorts = new int[]{2, 3};
   public static final boolean kLeftEncoderReversed = false;
