@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import robot.Constants;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -9,22 +9,51 @@ public class Pneumatics extends SubsystemBase {
    * Creates a new ExampleSubsystem.
    */
   //TODO: rename later
-  Solenoid solo1;
-  Solenoid solo2;
-  Solenoid solo3;
-  Solenoid solo4;
+  Solenoid gearBox1;
+  Solenoid gearBox2;
+  Solenoid colorWheelExtender;
+  //Solenoid extra;
 
   public Pneumatics() {
-      solo1 = new Solenoid(frc.robot.Constants.SOLENOID1);
-      solo2 = new Solenoid(frc.robot.Constants.SOLENOID2);
-      solo3 = new Solenoid(frc.robot.Constants.SOLENOID3);
-      solo4 = new Solenoid(frc.robot.Constants.SOLENOID4);
+      gearBox1 = new Solenoid(Constants.SOLENOID1);
+      gearBox2 = new Solenoid(Constants.SOLENOID2);
+      colorWheelExtender = new Solenoid(Constants.SOLENOID3);
+      //solo4 = new Solenoid(Constants.SOLENOID4);
   } 
+
+  
 
   public void initDefaultCommand()
   {
 
   }
+
+  public void gearSwitch()
+  {
+    if(!(gearBox1.get()) && !(gearBox2.get()))
+    {
+      gearBox1.set(true);
+      gearBox2.set(true);
+    }
+    else
+    {
+      gearBox1.set(false);
+      gearBox2.set(false);
+    }
+  }
+
+  public void extendWheel()
+  {
+    if(!(colorWheelExtender.get()))
+    {
+      colorWheelExtender.set(true);
+    }
+    else
+    {
+      colorWheelExtender.set(false);
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

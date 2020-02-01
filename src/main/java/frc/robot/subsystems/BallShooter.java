@@ -5,18 +5,20 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 public class BallShooter extends SubsystemBase
 {
     
     //All motors declared
     //TODO: probably should rename these
-    private SpeedController succLeft = new WPI_TalonSRX(Constants.MOTOR_INTAKE_LEFT);
-    private SpeedController succRight = new WPI_TalonSRX(Constants.MOTOR_INTAKE_RIGHT);
+    private SpeedController succer = new WPI_TalonSRX(Constants.MOTOR_INTAKE_LEFT);
 
     private SpeedController spitLeft = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_LEFT);
     private SpeedController spitRight = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_RIGHT);
     
     private SpeedController beltFeed = new WPI_TalonSRX(Constants.MOTOR_CONVEYOR);
+    
+    private boolean isSuccOn = false;
     public BallShooter() 
     {
         
@@ -32,11 +34,29 @@ public class BallShooter extends SubsystemBase
         spitRight.set(-3);
     }
 
+    public void stopPew()
+    {
+        spitLeft.stopMotor();
+        spitRight.stopMotor();
+    }
+
+
     public void succ()
     {
-        //same with these
-        succLeft.set(3);
-        succRight.set(-3);
+        if (!(isSuccOn))
+        {
+            succer.set(3);
+
+            //sets boolean to true
+            isSuccOn = !(isSuccOn);
+        }
+        else
+        {
+            succer.stopMotor();
+
+            //sets boolean to false
+            isSuccOn = !(isSuccOn);
+        }
     }
 
     public void beltOn()
