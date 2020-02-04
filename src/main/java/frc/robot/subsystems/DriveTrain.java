@@ -33,15 +33,15 @@ public class DriveTrain extends SubsystemBase {
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-  // The left-side drive encoder
-  private final Encoder m_leftEncoder =
-      new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
-                  Constants.kLeftEncoderReversed);
+  // // The left-side drive encoder
+  // private final Encoder m_leftEncoder =
+  //     new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
+  //                 Constants.kLeftEncoderReversed);
 
-  // The right-side drive encoder
-  private final Encoder m_rightEncoder =
-      new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
-                  Constants.kRightEncoderReversed);
+  // // The right-side drive encoder
+  // private final Encoder m_rightEncoder =
+  //     new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
+  //                 Constants.kRightEncoderReversed);
 
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
@@ -51,8 +51,9 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     // Sets the distance per pulse for the encoders
-    m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    // Disable Encoders
+    // m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    // m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
   }
   
   //@Override
@@ -86,40 +87,41 @@ public class DriveTrain extends SubsystemBase {
     m_drive.tankDrive(left, right, speed);
   }
 
-  /**
-   * Resets the drive encoders to currently read a position of 0.
-   */
-  public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
-  }
+  // /**
+  //  * Resets the drive encoders to currently read a position of 0.
+  //  */
+  // public void resetEncoders() {
+  //   // m_leftEncoder.reset();
+  //   // m_rightEncoder.reset();
+  // }
 
-  /**
-   * Gets the average distance of the two encoders.
-   *
-   * @return the average of the two encoder readings
-   */
-  public double getAverageEncoderDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
-  }
+  // /**
+  //  * Gets the average distance of the two encoders.
+  //  *
+  //  * @return the average of the two encoder readings
+  //  */
+  // public double getAverageEncoderDistance() {
+  //   // return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+  //   return -1;
+  // }
 
-  /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  public Encoder getLeftEncoder() {
-    return m_leftEncoder;
-  }
+  // /**
+  //  * Gets the left drive encoder.
+  //  *
+  //  * @return the left drive encoder
+  //  */
+  // public Encoder getLeftEncoder() {
+  //   return m_leftEncoder;
+  // }
 
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  public Encoder getRightEncoder() {
-    return m_rightEncoder;
-  }
+  // /**
+  //  * Gets the right drive encoder.
+  //  *
+  //  * @return the right drive encoder
+  //  */
+  // public Encoder getRightEncoder() {
+  //   return m_rightEncoder;
+  // }
 
   /**
    * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
