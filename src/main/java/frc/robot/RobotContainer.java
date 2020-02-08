@@ -22,8 +22,8 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.subsystems.DriveTrain;
 
-import static edu.wpi.first.wpilibj.XboxController.Button;
-
+import static edu.wpi.first.wpilibj.Joystick.AxisType;
+import static edu.wpi.first.wpilibj.Joystick.ButtonType;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -63,13 +63,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Drive at half speed when the right bumper is held
+    // Drive at half speed when the 12 button is held
     new JoystickButton(m_rightJoystick, 12)
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-    // Stabilize robot to drive straight with gyro when left bumper is held
-    new JoystickButton(m_rightJoystick, 4).whenHeld(new PIDCommand(
+    // Stabilize robot to drive straight with gyro when 2 button is held
+    new JoystickButton(m_rightJoystick, 2).whenHeld(new PIDCommand(
         new PIDController(Constants.kStabilizationP, Constants.kStabilizationI,
                           Constants.kStabilizationD),
         // Close the loop on the turn rate
@@ -81,12 +81,12 @@ public class RobotContainer {
         // Require the robot drive
         m_robotDrive));
 
-    // Turn to 90 degrees when the 'X' button is pressed, with a 5 second timeout
-    new JoystickButton(m_rightJoystick, Button.kX.value)
+    // Turn to 90 degrees when the '3' button is pressed, with a 5 second timeout
+    new JoystickButton(m_rightJoystick, 3)
         .whenPressed(new TurnToAngle(90, m_robotDrive).withTimeout(5));
 
-    // Turn to -90 degrees with a profile when the 'A' button is pressed, with a 5 second timeout
-    new JoystickButton(m_rightJoystick, Button.kA.value)
+    // Turn to -90 degrees with a profile when the '4' button is pressed, with a 5 second timeout
+    new JoystickButton(m_rightJoystick, 4)
         .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
   }
 
