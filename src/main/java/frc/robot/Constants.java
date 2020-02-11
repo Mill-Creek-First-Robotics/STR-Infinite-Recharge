@@ -29,10 +29,10 @@ public final class Constants {
   public static final int SOLENOID5 = 8;
 
   //Motors corresponding to the drivetrain
-  public static final int LEFT_FRONT_MOTOR = 0;
-  public static final int LEFT_BACK_MOTOR = 1;
-  public static final int RIGHT_FRONT_MOTOR = 2;
-  public static final int RIGHT_BACK_MOTOR = 3;
+  public static final int LEFT_FRONT_MOTOR = 1;
+  public static final int LEFT_BACK_MOTOR = 2;
+  public static final int RIGHT_FRONT_MOTOR = 5;
+  public static final int RIGHT_BACK_MOTOR = 6;
 
   //Motors having to do with the shooting system
   public static final int MOTOR_LAUNCHER_LEFT = 4;
