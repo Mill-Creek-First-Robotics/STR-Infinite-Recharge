@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.Constants;
+import frc.robot.commands.ColorWheelArm;
 import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
 import frc.robot.commands.TurnToAngle;
@@ -36,9 +37,9 @@ import frc.robot.subsystems.Pneumatics;
  */
 public class RobotContainer {
         // The robot's subsystems
-        private final DriveTrain m_robotDrive = new DriveTrain();
-        private final BallShooter m_BallShooter = new BallShooter();
-        private final Pneumatics m_Pneumatics = new Pneumatics();
+        private DriveTrain m_robotDrive;
+        private BallShooter m_BallShooter;
+        private Pneumatics m_Pneumatics;
 
         // The driver's controller
         Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
@@ -48,6 +49,9 @@ public class RobotContainer {
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
         public RobotContainer() {
+                m_robotDrive = Robot.m_driveTrain;
+                m_BallShooter = Robot.m_ballShooter;
+                m_Pneumatics = Robot.m_pneumatics;
                 // Configure the button bindings
                 configureButtonBindings();
 
@@ -86,7 +90,8 @@ public class RobotContainer {
                                 m_robotDrive));
 
                 // Turn to 90 degrees when the '3' button is pressed, with a 5 second timeout
-                new JoystickButton(m_rightJoystick, 5).whenPressed(new TurnToAngle(90, m_robotDrive).withTimeout(5));
+                // new JoystickButton(m_rightJoystick, 5).whenPressed(new TurnToAngle(90,
+                // m_robotDrive).withTimeout(5));
 
                 // Turn to -90 degrees with a profile when the '4' button is pressed, with a 5
                 // second timeout
@@ -99,6 +104,7 @@ public class RobotContainer {
                                 .whenPressed(new beltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
 
                 new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
+                new JoystickButton(m_rightJoystick, 5).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.1));
 
         }
 

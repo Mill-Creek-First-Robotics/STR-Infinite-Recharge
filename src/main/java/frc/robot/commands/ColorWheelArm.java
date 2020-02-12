@@ -3,11 +3,12 @@ package frc.robot.commands;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+
 /**
  * An example command that uses an example subsystem.
  */
 public class ColorWheelArm extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Pneumatics m_pneumatics;
 
   /**
@@ -15,8 +16,7 @@ public class ColorWheelArm extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ColorWheelArm(Pneumatics subsystem) 
-  {
+  public ColorWheelArm(Pneumatics subsystem) {
     m_pneumatics = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.m_pneumatics);
@@ -24,15 +24,13 @@ public class ColorWheelArm extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() 
-  {
+  public void initialize() {
     m_pneumatics.extendWheel();
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() 
-  {
+  public boolean isFinished() {
     return true;
   }
 }
