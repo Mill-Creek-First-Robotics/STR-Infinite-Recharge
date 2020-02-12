@@ -18,15 +18,14 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.Constants;
+import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.commands.beltToggle;
 import frc.robot.subsystems.BallShooter;
 import frc.robot.subsystems.DriveTrain;
-
-import static edu.wpi.first.wpilibj.Joystick.AxisType;
-import static edu.wpi.first.wpilibj.Joystick.ButtonType;
+import frc.robot.subsystems.Pneumatics;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -36,74 +35,80 @@ import static edu.wpi.first.wpilibj.Joystick.ButtonType;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems
-    private final DriveTrain m_robotDrive = new DriveTrain();
-    private final BallShooter m_BallShooter = new BallShooter();
+        // The robot's subsystems
+        private final DriveTrain m_robotDrive = new DriveTrain();
+        private final BallShooter m_BallShooter = new BallShooter();
+        private final Pneumatics m_Pneumatics = new Pneumatics();
 
-    // The driver's controller
-    Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
-    static Joystick m_rightJoystick = new Joystick(Constants.RIGHT_CONTROLLER);
+        // The driver's controller
+        Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
+        static Joystick m_rightJoystick = new Joystick(Constants.RIGHT_CONTROLLER);
 
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
-    public RobotContainer() {
-        // Configure the button bindings
-        configureButtonBindings();
+        /**
+         * The container for the robot. Contains subsystems, OI devices, and commands.
+         */
+        public RobotContainer() {
+                // Configure the button bindings
+                configureButtonBindings();
 
-        // Configure default commands
-        // Set the default drive command to split-stick arcade drive
-        m_robotDrive.setDefaultCommand(
-                // A split-stick arcade command, with forward/backward controlled by the left
-                // hand, and turning controlled by the right.
-                new RunCommand(() -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(), m_rightJoystick.getX()),
-                        m_robotDrive));
+                // Configure default commands
+                // Set the default drive command to split-stick arcade drive
+                m_robotDrive.setDefaultCommand(
+                                // A split-stick arcade command, with forward/backward controlled by the left
+                                // hand, and turning controlled by the right.
+                                new RunCommand(() -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(),
+                                                m_rightJoystick.getX()), m_robotDrive));
 
-    }
+        }
 
-    /**
-     * Use this method to define your button->command mappings. Buttons can be
-     * created by instantiating a {@link GenericHID} or one of its subclasses
-     * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
-     * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-     */
-    private void configureButtonBindings() {
-        // Drive at half speed when the 12 button is held
-        new JoystickButton(m_rightJoystick, 12).whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
-                .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+        /**
+         * Use this method to define your button->command mappings. Buttons can be
+         * created by instantiating a {@link GenericHID} or one of its subclasses
+         * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+         * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+         */
+        private void configureButtonBindings() {
+                // Drive at half speed when the 12 button is held
+                new JoystickButton(m_rightJoystick, 12).whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
+                                .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-        // Stabilize robot to drive straight with gyro when 2 button is held
-        new JoystickButton(m_rightJoystick, 2).whenHeld(new PIDCommand(
-                new PIDController(Constants.kStabilizationP, Constants.kStabilizationI, Constants.kStabilizationD),
-                // Close the loop on the turn rate
-                m_robotDrive::getTurnRate,
-                // Setpoint is 0
-                0,
-                // Pipe the output to the turning controls
-                output -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(GenericHID.Hand.kLeft), output),
-                // Require the robot drive
-                m_robotDrive));
+                // Stabilize robot to drive straight with gyro when 2 button is held
+                new JoystickButton(m_rightJoystick, 2).whenHeld(new PIDCommand(
+                                new PIDController(Constants.kStabilizationP, Constants.kStabilizationI,
+                                                Constants.kStabilizationD),
+                                // Close the loop on the turn rate
+                                m_robotDrive::getTurnRate,
+                                // Setpoint is 0
+                                0,
+                                // Pipe the output to the turning controls
+                                output -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(GenericHID.Hand.kLeft), output),
+                                // Require the robot drive
+                                m_robotDrive));
 
-        // Turn to 90 degrees when the '3' button is pressed, with a 5 second timeout
-        new JoystickButton(m_rightJoystick, 3).whenPressed(new TurnToAngle(90, m_robotDrive).withTimeout(5));
+                // Turn to 90 degrees when the '3' button is pressed, with a 5 second timeout
+                new JoystickButton(m_rightJoystick, 5).whenPressed(new TurnToAngle(90, m_robotDrive).withTimeout(5));
 
-        // Turn to -90 degrees with a profile when the '4' button is pressed, with a 5
-        // second timeout
-        new JoystickButton(m_rightJoystick, 4).whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
+                // Turn to -90 degrees with a profile when the '4' button is pressed, with a 5
+                // second timeout
+                new JoystickButton(m_rightJoystick, 6)
+                                .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
 
-        new JoystickButton(m_rightJoystick, 5).whenPressed(new GetBalls(m_BallShooter).withTimeout(5));
+                new JoystickButton(m_rightJoystick, 3).whenPressed(new GetBalls(m_BallShooter).withTimeout(5));
 
-        new JoystickButton(m_leftJoystick, 5).whenPressed(new beltToggle(m_BallShooter).withTimeout(5));
+                new JoystickButton(m_leftJoystick, 5)
+                                .whenPressed(new beltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
 
-    }
+                new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-    public Command getAutonomousCommand() {
-        // no auto
-        return new InstantCommand();
-    }
+        }
+
+        /**
+         * Use this to pass the autonomous command to the main {@link Robot} class.
+         *
+         * @return the command to run in autonomous
+         */
+        public Command getAutonomousCommand() {
+                // no auto
+                return new InstantCommand();
+        }
 }

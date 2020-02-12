@@ -36,10 +36,8 @@ public final class Constants {
   // Motors having to do with the shooting system
   public static final int MOTOR_LAUNCHER_LEFT = 14;
   public static final int MOTOR_LAUNCHER_RIGHT = 15;
-  public static final int MOTOR_INTAKE_LEFT = 6;
-  public static final int MOTOR_INTAKE_RIGHT = 7;
-  public static final int MOTOR_INTAKE = 6;
-  public static final int MOTOR_CONVEYOR = 8;
+  public static final int MOTOR_INTAKE = 3;
+  public static final int MOTOR_CONVEYOR = 4;
 
   // encoder stuff - - Change names when needed
   public static final int[] kLeftEncoderPorts = new int[] { 0, 1 };
@@ -72,4 +70,7 @@ public final class Constants {
   // ports for joysticks
   public static final int LEFT_CONTROLLER = 0;
   public static final int RIGHT_CONTROLLER = 1;
+
+  // Motor speeds
+  public static final double kDrivetrainSpeedMultiplier = .5;
 }

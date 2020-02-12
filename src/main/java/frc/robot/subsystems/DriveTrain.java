@@ -7,44 +7,64 @@
 
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   // The motors on the left side of the drive.
-  private final SpeedControllerGroup m_leftMotors =
-      new SpeedControllerGroup(new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR),
-                               new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(
+      new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR), new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
 
   // The motors on the right side of the drive.
-  private final SpeedControllerGroup m_rightMotors =
-      new SpeedControllerGroup(new WPI_TalonSRX(Constants.RIGHT_FRONT_MOTOR),
-                               new WPI_TalonSRX(Constants.RIGHT_BACK_MOTOR));
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(
+      new WPI_TalonSRX(Constants.RIGHT_FRONT_MOTOR), new WPI_TalonSRX(Constants.RIGHT_BACK_MOTOR));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // // The left-side drive encoder
   // private final Encoder m_leftEncoder =
-  //     new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
-  //                 Constants.kLeftEncoderReversed);
+  // new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
+  // Constants.kLeftEncoderReversed);
 
   // // The right-side drive encoder
   // private final Encoder m_rightEncoder =
-  //     new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
-  //                 Constants.kRightEncoderReversed);
+  // new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
+  // Constants.kRightEncoderReversed);
 
   // The gyro sensor
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+  private final Gyro m_gyro = new Gyro() {
+
+    @Override
+    public void close() throws Exception {
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public double getRate() {
+      return 0;
+    }
+
+    @Override
+    public double getAngle() {
+      return 0;
+    }
+
+    @Override
+    public void calibrate() {
+
+    }
+  };
 
   /**
    * Creates a new DriveSubsystem.
@@ -55,16 +75,16 @@ public class DriveTrain extends SubsystemBase {
     // m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     // m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
   }
-  
-  //@Override
-  public void initDefaultCommand()
-  {
-      SpeedControllerGroup m_leftMotorGroup = new SpeedControllerGroup(m_leftMotors);
-      SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(m_rightMotors);
-      
-      DifferentialDrive m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
+
+  // @Override
+  public void initDefaultCommand() {
+    SpeedControllerGroup m_leftMotorGroup = new SpeedControllerGroup(m_leftMotors);
+    SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(m_rightMotors);
+
+    DifferentialDrive m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
 
   }
+
   /**
    * Drives the robot using arcade controls.
    *
@@ -78,53 +98,53 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Tank drive setting for robot coltrols
    * 
-   * @param left input for left joystick
+   * @param left  input for left joystick
    * @param right input for right joystick
    * @param speed input for low/high speed
    */
-  public void tankDrive(double left, double right, boolean speed)
-  {
-    m_drive.tankDrive(left, right, speed);
+  public void tankDrive(double left, double right, boolean speed) {
+    m_drive.tankDrive(left * Constants.kDrivetrainSpeedMultiplier, right * Constants.kDrivetrainSpeedMultiplier, true);
   }
 
   // /**
-  //  * Resets the drive encoders to currently read a position of 0.
-  //  */
+  // * Resets the drive encoders to currently read a position of 0.
+  // */
   // public void resetEncoders() {
-  //   // m_leftEncoder.reset();
-  //   // m_rightEncoder.reset();
+  // // m_leftEncoder.reset();
+  // // m_rightEncoder.reset();
   // }
 
   // /**
-  //  * Gets the average distance of the two encoders.
-  //  *
-  //  * @return the average of the two encoder readings
-  //  */
+  // * Gets the average distance of the two encoders.
+  // *
+  // * @return the average of the two encoder readings
+  // */
   // public double getAverageEncoderDistance() {
-  //   // return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
-  //   return -1;
+  // // return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+  // return -1;
   // }
 
   // /**
-  //  * Gets the left drive encoder.
-  //  *
-  //  * @return the left drive encoder
-  //  */
+  // * Gets the left drive encoder.
+  // *
+  // * @return the left drive encoder
+  // */
   // public Encoder getLeftEncoder() {
-  //   return m_leftEncoder;
+  // return m_leftEncoder;
   // }
 
   // /**
-  //  * Gets the right drive encoder.
-  //  *
-  //  * @return the right drive encoder
-  //  */
+  // * Gets the right drive encoder.
+  // *
+  // * @return the right drive encoder
+  // */
   // public Encoder getRightEncoder() {
-  //   return m_rightEncoder;
+  // return m_rightEncoder;
   // }
 
   /**
-   * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
    *
    * @param maxOutput the maximum output to which the drive will be constrained
    */
