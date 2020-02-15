@@ -9,15 +9,13 @@ public class Pneumatics extends SubsystemBase {
    * Creates a new ExampleSubsystem.
    */
   // TODO: rename later
-  Solenoid gearBox1;
-  Solenoid gearBox2;
+  Solenoid gearBox;
   Solenoid colorWheelExtender;
   // Solenoid extra;
 
   public Pneumatics() {
-    gearBox1 = new Solenoid(Constants.SOLENOID1);
-    gearBox2 = new Solenoid(Constants.SOLENOID2);
-    colorWheelExtender = new Solenoid(Constants.SOLENOID3);
+    gearBox = new Solenoid(Constants.SOLENOID1);
+    colorWheelExtender = new Solenoid(Constants.SOLENOID2);
     // solo4 = new Solenoid(Constants.SOLENOID4);
   }
 
@@ -27,11 +25,9 @@ public class Pneumatics extends SubsystemBase {
 
   public void gearSwitch() {
     if (!(gearBox1.get()) && !(gearBox2.get())) {
-      gearBox1.set(true);
-      gearBox2.set(true);
+      gearBox.set(true);
     } else {
-      gearBox1.set(false);
-      gearBox2.set(false);
+      gearBox.set(false);
     }
   }
 
