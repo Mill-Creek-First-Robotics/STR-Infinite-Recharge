@@ -39,6 +39,18 @@ public final class Constants {
   public static final int MOTOR_INTAKE = 3;
   public static final int MOTOR_CONVEYOR = 4;
 
+  // Motors/other devices having to do with the hanger
+  public static final int MOTOR_SPOOLA = 45;
+  public static final int MOTOR_SPOOLB = 49345;
+  public static final int MOTOR_HOOK = 438953;
+  
+
+  // sensors/motors needed for the wheelturner
+  public static final int MOTOR_TURNER = 43000;
+  public static final int channelA = 403945;
+  public static final int channelB = 493439842;
+
+
   // encoder stuff - - Change names when needed
   public static final int[] kLeftEncoderPorts = new int[] { 0, 1 };
   public static final int[] kRightEncoderPorts = new int[] { 2, 3 };
