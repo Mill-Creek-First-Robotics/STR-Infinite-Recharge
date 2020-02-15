@@ -24,7 +24,7 @@ public class Pneumatics extends SubsystemBase {
   }
 
   public void gearSwitch() {
-    if (!(gearBox1.get()) && !(gearBox2.get())) {
+    if (!(gearBox.get())) {
       gearBox.set(true);
     } else {
       gearBox.set(false);
