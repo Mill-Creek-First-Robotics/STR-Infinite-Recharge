@@ -21,11 +21,11 @@ package frc.robot;
 public final class Constants {
 
   // Pneumatic pistons
-  public static final int SOLENOID1 = 4;
-  public static final int SOLENOID2 = 5;
-  public static final int SOLENOID3 = 6;
-  public static final int SOLENOID4 = 7;
-  public static final int SOLENOID5 = 8;
+  public static final int SOLENOID1 = 0;
+  public static final int SOLENOID2 = 1;
+  public static final int SOLENOID3 = 2;
+  public static final int SOLENOID4 = 3;
+  public static final int SOLENOID5 = 4;
 
   // Motors corresponding to the drivetrain
   public static final int LEFT_FRONT_MOTOR = 1;

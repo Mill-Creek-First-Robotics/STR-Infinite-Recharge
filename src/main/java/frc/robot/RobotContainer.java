@@ -95,8 +95,8 @@ public class RobotContainer {
 
                 // Turn to -90 degrees with a profile when the '4' button is pressed, with a 5
                 // second timeout
-                new JoystickButton(m_rightJoystick, 6)
-                                .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
+                // new JoystickButton(m_rightJoystick, 6)
+                // .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
 
                 new JoystickButton(m_rightJoystick, 3).whenPressed(new GetBalls(m_BallShooter).withTimeout(5));
 
@@ -104,7 +104,7 @@ public class RobotContainer {
                                 .whenPressed(new beltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
 
                 new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
-                new JoystickButton(m_rightJoystick, 5).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.1));
+                new JoystickButton(m_leftJoystick, 10).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));
 
         }
 
