@@ -60,19 +60,10 @@ public class WheelSensors extends SubsystemBase
   public void autoTurn()
   {
 
-    /*
-    This might look weird but hear me out...
-    The Color class cannot be changed after it's been initialized, this poses a problem for sensing color change.
-    My solution is to use an array list and add/remove Colors as they're being used to sense color changes.
-    Is there a better solution? Probably, but this is the best solution I can come up with as of 2/18/20.
-    */
-    ArrayList<Color> change = new ArrayList<Color>();
-    change.add(colorSensor.getColor());
+    Color currentColor = colorSensor.getColor();
     //utilizing while loop to make sure it makes a full rotation
-    //don't worry, they'll be a failsafe in case it doesn't sense a color change
-   
+    //don't worry, there will be a failsafe in case it doesn't sense a color change
     int colorChange = 0;
-
     //TODO: You can increase the speed here depending on how good the color sensor reads color changes for added efficency.
     wheelTurner.set(.25);
     
@@ -80,22 +71,16 @@ public class WheelSensors extends SubsystemBase
     {
       ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
       //checks if the current color that is being sensed checks out with our stored 
-      if(match != colorMatcher.matchClosestColor(change.get(0)))
+      if(match != colorMatcher.matchClosestColor(currentColor))
       {
-
         colorChange++;
-        /*
-          Now this is how these next two lines work:
-          first the current color being sensed is being assigned to index 1 in the array list.
-          second, the color at index 0 is being removed, thus moving the color from index 1 to index 0.
-          This prepare us for the next time the loop runs
-        */
-        change.add(colorSensor.getColor());
-        change.remove(0);
+        currentColor = colorSensor.getColor();        
       }
 
     }
+    wheelTurner.stopMotor();
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
