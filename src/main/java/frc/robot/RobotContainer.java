@@ -23,7 +23,7 @@ import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
-import frc.robot.commands.beltToggle;
+import frc.robot.commands.BeltToggle;
 import frc.robot.subsystems.BallShooter;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
@@ -101,7 +101,7 @@ public class RobotContainer {
                 new JoystickButton(m_rightJoystick, 3).whenPressed(new GetBalls(m_BallShooter).withTimeout(5));
 
                 new JoystickButton(m_leftJoystick, 5)
-                                .whenPressed(new beltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
+                                .whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
 
                 new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
                 new JoystickButton(m_leftJoystick, 10).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));

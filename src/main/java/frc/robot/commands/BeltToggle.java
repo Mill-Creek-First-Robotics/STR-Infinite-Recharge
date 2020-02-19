@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  * An example command that uses an example subsystem.
  */
-public class beltToggle extends CommandBase {
+public class BeltToggle extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final BallShooter m_ballShooter;
 
@@ -18,7 +18,7 @@ public class beltToggle extends CommandBase {
    */
   Joystick input;
 
-  public beltToggle(BallShooter subsystem, Joystick joystick) {
+  public BeltToggle(BallShooter subsystem, Joystick joystick) {
     m_ballShooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballShooter);
