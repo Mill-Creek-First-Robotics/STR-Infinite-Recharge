@@ -18,7 +18,7 @@ import frc.robot.Constants;
 public class DriveTrain extends SubsystemBase {
   // The motors on the left side of the drive.
   private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(
-      new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR), new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
+      new WPI_TalonSRX(Constants.LEFT_FRONT_MOTOR), new WPI_TalonSRX(Constants.LEFT_BACK_MOTOR));
 
   // The motors on the right side of the drive.
   private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(
