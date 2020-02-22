@@ -21,6 +21,7 @@ import frc.robot.Constants;
 import frc.robot.commands.ColorWheelArm;
 import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
+import frc.robot.commands.ToggleBallHolder;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.commands.BeltToggle;
@@ -60,8 +61,12 @@ public class RobotContainer {
                 m_robotDrive.setDefaultCommand(
                                 // A split-stick arcade command, with forward/backward controlled by the left
                                 // hand, and turning controlled by the right.
-                                new RunCommand(() -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(),
-                                                m_rightJoystick.getX()), m_robotDrive));
+                                new RunCommand(() -> m_robotDrive.arcadeDrive(
+                                                Math.signum(-m_rightJoystick.getY()) * m_rightJoystick.getY()
+                                                                * m_rightJoystick.getY(),
+                                                Math.signum(m_rightJoystick.getZ()) * m_rightJoystick.getZ()
+                                                                * m_rightJoystick.getZ()),
+                                                m_robotDrive));
 
         }
 
@@ -72,22 +77,24 @@ public class RobotContainer {
          * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
          */
         private void configureButtonBindings() {
-                // Drive at half speed when the 12 button is held
-                new JoystickButton(m_rightJoystick, 12).whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
+                // Drive at half speed when the 2 button is held
+                new JoystickButton(m_rightJoystick, 2).whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
                                 .whenReleased(() -> m_robotDrive.setMaxOutput(1));
 
-                // Stabilize robot to drive straight with gyro when 2 button is held
-                new JoystickButton(m_rightJoystick, 2).whenHeld(new PIDCommand(
-                                new PIDController(Constants.kStabilizationP, Constants.kStabilizationI,
-                                                Constants.kStabilizationD),
-                                // Close the loop on the turn rate
-                                m_robotDrive::getTurnRate,
-                                // Setpoint is 0
-                                0,
-                                // Pipe the output to the turning controls
-                                output -> m_robotDrive.arcadeDrive(m_rightJoystick.getY(GenericHID.Hand.kLeft), output),
-                                // Require the robot drive
-                                m_robotDrive));
+                // // Stabilize robot to drive straight with gyro when 2 button is held
+                // new JoystickButton(m_rightJoystick, 2).whenHeld(new PIDCommand(
+                // new PIDController(Constants.kStabilizationP, Constants.kStabilizationI,
+                // Constants.kStabilizationD),
+                // // Close the loop on the turn rate
+                // m_robotDrive::getTurnRate,
+                // // Setpoint is 0
+                // 0,
+                // // Pipe the output to the turning controls
+                // output ->
+                // m_robotDrive.arcadeDrive(m_rightJoystick.getY(GenericHID.Hand.kLeft),
+                // output),
+                // // Require the robot drive
+                // m_robotDrive));
 
                 // Turn to 90 degrees when the '3' button is pressed, with a 5 second timeout
                 // new JoystickButton(m_rightJoystick, 5).whenPressed(new TurnToAngle(90,
@@ -102,6 +109,7 @@ public class RobotContainer {
 
                 new JoystickButton(m_leftJoystick, 5)
                                 .whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
+                new JoystickButton(m_leftJoystick, 6).whenPressed(new ToggleBallHolder(m_BallShooter).withTimeout(0.1));
 
                 new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
                 new JoystickButton(m_leftJoystick, 10).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));
