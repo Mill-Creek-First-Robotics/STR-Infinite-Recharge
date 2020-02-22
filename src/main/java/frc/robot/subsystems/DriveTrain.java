@@ -7,10 +7,12 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -27,6 +29,9 @@ public class DriveTrain extends SubsystemBase {
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
+  // The robot's gyro/AHRS
+  private AHRS m_gyro;
+
   // // The left-side drive encoder
   // private final Encoder m_leftEncoder =
   // new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
@@ -36,35 +41,6 @@ public class DriveTrain extends SubsystemBase {
   // private final Encoder m_rightEncoder =
   // new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
   // Constants.kRightEncoderReversed);
-
-  // The gyro sensor
-  private final Gyro m_gyro = new Gyro() {
-
-    @Override
-    public void close() throws Exception {
-
-    }
-
-    @Override
-    public void reset() {
-
-    }
-
-    @Override
-    public double getRate() {
-      return 0;
-    }
-
-    @Override
-    public double getAngle() {
-      return 0;
-    }
-
-    @Override
-    public void calibrate() {
-
-    }
-  };
 
   /**
    * Creates a new DriveSubsystem.
@@ -82,6 +58,12 @@ public class DriveTrain extends SubsystemBase {
     SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(m_rightMotors);
 
     DifferentialDrive m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
+
+    try {
+      m_gyro = new AHRS(SPI.Port.kMXP);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+    }
 
   }
 
