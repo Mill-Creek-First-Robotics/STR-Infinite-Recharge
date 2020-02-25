@@ -9,14 +9,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class GetBalls extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final BallShooter m_ballShooter;
+  private Double speed;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public GetBalls(BallShooter subsystem) {
+  public GetBalls(BallShooter subsystem, double speed) {
     m_ballShooter = subsystem;
+    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballShooter);
   }
@@ -24,7 +26,7 @@ public class GetBalls extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_ballShooter.succ(0.3);
+    m_ballShooter.succ(speed);
   }
 
   // Returns true when the command should end.
