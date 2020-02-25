@@ -109,8 +109,7 @@ public class RobotContainer {
                 // new JoystickButton(m_rightJoystick, 6)
                 // .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
 
-                new JoystickButton(m_leftJoystick, 3)
-                                .whenPressed(new GetBalls(m_BallShooter, m_leftJoystick.getThrottle()).withTimeout(5));
+                new JoystickButton(m_leftJoystick, 3).whenPressed(new GetBalls(m_BallShooter, 0.3).withTimeout(5));
 
                 new JoystickButton(m_leftJoystick, 5)
                                 .whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
@@ -118,9 +117,8 @@ public class RobotContainer {
 
                 new JoystickButton(m_rightJoystick, 4).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
                 new JoystickButton(m_leftJoystick, 10).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));
-                // new JoystickButton(m_leftJoystick, 8)
-                // .whenPressed(new ColorWheelStartTurning(m_wheelSensor,
-                // 0.3).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 8)
+                                .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.3).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
                 // StopTurning(m_wheelSensor).withTimeout(0.5));
 

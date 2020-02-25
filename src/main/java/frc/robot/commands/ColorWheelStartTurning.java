@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class ColorWheelStartTurning extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
   private final WheelSensors m_startturn;
   private final double m_speed;
@@ -24,7 +24,7 @@ public class ColorWheelStartTurning extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ColorWheelStartTurning(WheelSensors subsystem,double speed) {
+  public ColorWheelStartTurning(WheelSensors subsystem, double speed) {
     m_startturn = subsystem;
     m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,8 +35,7 @@ public class ColorWheelStartTurning extends CommandBase {
   @Override
   public void initialize() {
 
-      m_startturn.startTurning(m_speed);
-
+    m_startturn.startTurning(m_speed);
 
   }
 
