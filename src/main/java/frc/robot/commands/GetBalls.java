@@ -16,9 +16,9 @@ public class GetBalls extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public GetBalls(BallShooter subsystem, double speed) {
+  public GetBalls(BallShooter subsystem, double spd) {
     m_ballShooter = subsystem;
-    this.speed = speed;
+    speed = spd;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballShooter);
   }

@@ -44,7 +44,7 @@ public class BallShooter extends SubsystemBase {
     public void succ(double sped) {
         if (!(isSuccOn)) {
 
-            succer.set(sped);
+            succer.set(-sped);
 
             // sets boolean to true
             isSuccOn = !(isSuccOn);
@@ -62,8 +62,7 @@ public class BallShooter extends SubsystemBase {
         if (!isBeltOn) {
             lowerBallHolder();
 
-            beltFeed.setInverted(false);
-            beltFeed.set((sped + 1) / 2);
+            beltFeed.set(-((sped + 1) / 2));
 
             isBeltOn = !(isBeltOn);
         } else {
