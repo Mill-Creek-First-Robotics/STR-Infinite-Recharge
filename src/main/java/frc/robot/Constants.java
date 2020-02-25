@@ -45,7 +45,7 @@ public final class Constants {
   public static final int MOTOR_HOOK = 438953;
 
   // sensors/motors needed for the wheelturner
-  public static final int MOTOR_TURNER = 43000;
+  public static final int MOTOR_TURNER = 8;
   public static final int channelA = 403945;
   public static final int channelB = 493439842;
 

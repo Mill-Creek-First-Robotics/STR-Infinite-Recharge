@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class GetBalls extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final BallShooter m_ballShooter;
 
   /**
@@ -24,7 +24,7 @@ public class GetBalls extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_ballShooter.succ();
+    m_ballShooter.succ(0.3);
   }
 
   // Returns true when the command should end.
