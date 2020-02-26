@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
     m_ballShooter = new BallShooter();
     m_robotContainer = new RobotContainer();
     m_wheelSensor = new WheelSensors();
+    if (m_wheelSensor == null)
+      System.out.println("SHKREEEEEEEEEEEEEEEEEE in robotInit");
   }
 
   /**

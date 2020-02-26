@@ -20,10 +20,10 @@ public class WheelSensors extends SubsystemBase {
   final ColorMatch colorMatcher = new ColorMatch();
 
   // colors on color wheel(probably should set confidence to semi-low)
-  private static Color yellow;
-  private static Color green;
-  private static Color blue;
-  private static Color red;
+  private Color yellow;
+  private Color green;
+  private Color blue;
+  private Color red;
 
   public WheelSensors() {
     yellow = ColorMatch.makeColor(0.1, 0.2, 0.3);
@@ -37,6 +37,8 @@ public class WheelSensors extends SubsystemBase {
 
     // God help us all
     colorMatcher.setConfidenceThreshold(.5);
+
+    System.out.println("WheelSensors Constructor Successful!");
   }
 
   /**

@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ColorWheelStartTurning extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
-  private final WheelSensors m_startturn;
-  private final double m_speed;
+  private WheelSensors m_startturn;
+  private double m_speed;
 
   /**
    * Creates a new ExampleCommand.
@@ -25,6 +25,8 @@ public class ColorWheelStartTurning extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ColorWheelStartTurning(WheelSensors subsystem, double speed) {
+    if (subsystem == null)
+      System.out.println("SHKREEEEEEEEEEEEEEEEEE in ColorWheelStartTurning");
     m_startturn = subsystem;
     m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.

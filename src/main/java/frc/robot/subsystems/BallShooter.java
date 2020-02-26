@@ -22,7 +22,7 @@ public class BallShooter extends SubsystemBase {
     private Solenoid ballHolder;
 
     public BallShooter() {
-        ballHolder = new Solenoid(Constants.SOLENOID3);
+        ballHolder = new Solenoid(Constants.SOLENOID_STOPPER);
         raiseBallHolder(); // Should default to being up.
     }
 
