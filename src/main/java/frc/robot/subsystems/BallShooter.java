@@ -58,26 +58,18 @@ public class BallShooter extends SubsystemBase {
 
     private boolean isBeltOn = false;
 
-    public void startBelt(double speed) {
-        lowerBallHolder();
-
-        beltFeed.set(-((speed + 1) / 2));
-
-        isBeltOn = !(isBeltOn);
-    }
-
-    public void stopBelt() {
-        raiseBallHolder();
-        beltFeed.stopMotor();
-
-        isBeltOn = !(isBeltOn);
-    }
-
-    public void beltfeed(double speed) {
+    public void beltfeed(double sped) {
         if (!isBeltOn) {
-            startBelt(speed);
+            lowerBallHolder();
+
+            beltFeed.set(-((sped + 1) / 2));
+
+            isBeltOn = !(isBeltOn);
         } else {
-            stopBelt();
+            raiseBallHolder();
+            beltFeed.stopMotor();
+
+            isBeltOn = !(isBeltOn);
         }
     }
 

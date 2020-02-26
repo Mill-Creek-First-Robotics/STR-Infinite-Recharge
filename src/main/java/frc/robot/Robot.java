@@ -89,9 +89,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // m_driveTrain.tankDrive(1.0, 1.0, false);
-
-    // m_driveTrain.tankDrive(0, 0, false);
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
      * switch(autoSelected) { case "My Auto": autonomousCommand = new
