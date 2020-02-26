@@ -120,7 +120,7 @@ public class RobotContainer {
                 new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
                 new JoystickButton(m_rightJoystick, 3).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));
                 new JoystickButton(m_rightJoystick, 4)
-                                .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.3).withTimeout(0.5));
+                                .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
                 // StopTurning(m_wheelSensor).withTimeout(0.5));
 
