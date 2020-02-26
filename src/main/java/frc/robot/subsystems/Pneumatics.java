@@ -5,14 +5,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Pneumatics extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
+
   // TODO: rename later
   Solenoid gearBox;
   Solenoid colorWheelExtender;
   // Solenoid extra;
 
+  // TODO: Split Pneumatics to their separate subsystems, so no commands conflict.
   public Pneumatics() {
     gearBox = new Solenoid(Constants.SOLENOID_GEARSWITCH);
     colorWheelExtender = new Solenoid(Constants.SOLENOID_ARM);
