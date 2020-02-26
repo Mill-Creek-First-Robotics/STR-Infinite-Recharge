@@ -10,10 +10,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Hanger extends SubsystemBase {
     
-
-  private final SpeedControllerGroup spools = new SpeedControllerGroup(
-    new WPI_TalonSRX(Constants.MOTOR_SPOOLA), new WPI_TalonSRX(Constants.MOTOR_SPOOLB));
-    SpeedController hook = new WPI_TalonSRX(Constants.MOTOR_TURNER);
+  private SpeedController hook = new WPI_TalonSRX(Constants.MOTOR_HOOK);
+  private SpeedController spool = new WPI_TalonSRX(Constants.MOTOR_SPOOL);
 
 
   public Hanger() 
@@ -25,19 +23,19 @@ public class Hanger extends SubsystemBase {
   public void extendHanger()
   {
     hook.set(Constants.kDrivetrainSpeedMultiplier);
-    spools.set(-1 * Constants.kDrivetrainSpeedMultiplier);
+    spool.set(-1 * Constants.kDrivetrainSpeedMultiplier);
   }
 
   public void stopHangerMotor()
   {
     hook.stopMotor();
-    spools.stopMotor();
+    spool.stopMotor();
   }
 
   public void retractHanger()
   {
     hook.set(-1 * Constants.kDrivetrainSpeedMultiplier);
-    spools.set(Constants.kDrivetrainSpeedMultiplier);
+    spool.set(Constants.kDrivetrainSpeedMultiplier);
   }
 
   @Override

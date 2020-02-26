@@ -14,8 +14,8 @@ public class Pneumatics extends SubsystemBase {
   // Solenoid extra;
 
   public Pneumatics() {
-    gearBox = new Solenoid(Constants.SOLENOID1);
-    colorWheelExtender = new Solenoid(Constants.SOLENOID2);
+    gearBox = new Solenoid(Constants.SOLENOID_GEARSWITCH);
+    colorWheelExtender = new Solenoid(Constants.SOLENOID_ARM);
     // solo4 = new Solenoid(Constants.SOLENOID4);
   }
 
