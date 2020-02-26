@@ -28,12 +28,13 @@ public class BeltToggle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_ballShooter.beltfeed(input.getThrottle());
+    m_ballShooter.startBelt(input.getThrottle());
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    m_ballShooter.stopBelt();
     return true;
   }
 }

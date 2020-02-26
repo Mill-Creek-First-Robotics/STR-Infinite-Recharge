@@ -24,18 +24,34 @@ public class Pneumatics extends SubsystemBase {
 
   public void gearSwitch() {
     if (!(gearBox.get())) {
-      gearBox.set(true);
+      goToFastGear();
     } else {
-      gearBox.set(false);
+      goToSlowGear();
     }
+  }
+
+  public void goToFastGear() {
+    gearBox.set(false);
+  }
+
+  public void goToSlowGear() {
+    gearBox.set(true);
   }
 
   public void extendWheel() {
     if (!(colorWheelExtender.get())) {
-      colorWheelExtender.set(true);
+      wheelUp();
     } else {
-      colorWheelExtender.set(false);
+      wheelDown();
     }
+  }
+
+  public void wheelUp() {
+    colorWheelExtender.set(true);
+  }
+
+  public void wheelDown() {
+    colorWheelExtender.set(false);
   }
 
   @Override
