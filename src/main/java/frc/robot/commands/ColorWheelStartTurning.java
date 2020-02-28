@@ -25,8 +25,7 @@ public class ColorWheelStartTurning extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ColorWheelStartTurning(WheelSensors subsystem, double speed) {
-    if (subsystem == null)
-      System.out.println("SHKREEEEEEEEEEEEEEEEEE in ColorWheelStartTurning");
+
     m_startturn = subsystem;
     m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
