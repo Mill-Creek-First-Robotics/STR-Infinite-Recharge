@@ -44,9 +44,8 @@ public class Robot extends TimedRobot {
     m_ballShooter = new BallShooter();
     m_wheelSensor = new WheelSensors();
     m_robotContainer = new RobotContainer();
+    
 
-    if (m_wheelSensor == null)
-      System.out.println("SHKREEEEEEEEEEEEEEEEEE in robotInit");
   }
 
   /**
@@ -110,6 +109,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+
   }
 
   @Override

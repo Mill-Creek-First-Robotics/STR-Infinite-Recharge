@@ -27,10 +27,12 @@ import frc.robot.commands.ToggleBallHolder;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.commands.BeltToggle;
+import frc.robot.commands.AutoForward;
 import frc.robot.subsystems.BallShooter;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.WheelSensors;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -133,6 +135,6 @@ public class RobotContainer {
          */
         public Command getAutonomousCommand() {
                 // no auto
-                return new InstantCommand();
+                return new AutoForward(m_robotDrive).withTimeout(5.0);
         }
 }
