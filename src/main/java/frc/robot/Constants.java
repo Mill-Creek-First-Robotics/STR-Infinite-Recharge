@@ -44,7 +44,7 @@ public final class Constants {
   public static final int MOTOR_HOOK = 438953;
 
   // sensors/motors needed for the wheelturner
-  public static final int MOTOR_TURNER = 43000;
+  public static final int MOTOR_TURNER = 8;
 
   // encoder stuff - - Change names when needed
   public static final int[] kLeftEncoderPorts = new int[] { 0, 1 };
