@@ -33,7 +33,6 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.WheelSensors;
 
-
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -135,6 +134,6 @@ public class RobotContainer {
          */
         public Command getAutonomousCommand() {
                 // no auto
-                return new AutoForward(m_robotDrive).withTimeout(5.0);
+                return new AutoForward(m_robotDrive).withTimeout(2.0);
         }
 }
