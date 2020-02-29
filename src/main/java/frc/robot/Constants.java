@@ -28,7 +28,7 @@ public final class Constants {
   // public static final int SOLENOID5 = 4;
 
   // Motors corresponding to the drivetrain
-  public static final int LEFT_FRONT_MOTOR = 1;
+  public static final int LEFT_FRONT_MOTOR = 0;
   public static final int LEFT_BACK_MOTOR = 2;
   public static final int RIGHT_FRONT_MOTOR = 5;
   public static final int RIGHT_BACK_MOTOR = 6;
