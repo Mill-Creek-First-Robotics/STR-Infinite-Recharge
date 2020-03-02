@@ -36,17 +36,17 @@ public final class Constants {
   // Motors having to do with the shooting system
   public static final int MOTOR_LAUNCHER_LEFT = 14;
   public static final int MOTOR_LAUNCHER_RIGHT = 15;
-  public static final int MOTOR_INTAKE = 3;
-  public static final int MOTOR_CONVEYOR = 4;
+  public static final int MOTOR_INTAKE = 4; // moved by mechanical
+  public static final int MOTOR_CONVEYOR = 3; // moved by mechanical
 
   // Motors/other devices having to do with the hanger
   public static final int MOTOR_SPOOL = 11111;
   public static final int MOTOR_HOOK = 438953;
 
   // sensors/motors needed for the wheelturner
-  public static final int MOTOR_TURNER = 8;
+  public static final int MOTOR_TURNER = 8; // moved by mechanical
 
-  // encoder stuff - - Change names when needed
+  // encoder stuff - Change names when needed
   public static final int[] kLeftEncoderPorts = new int[] { 0, 1 };
   public static final int[] kRightEncoderPorts = new int[] { 2, 3 };
   public static final boolean kLeftEncoderReversed = false;
