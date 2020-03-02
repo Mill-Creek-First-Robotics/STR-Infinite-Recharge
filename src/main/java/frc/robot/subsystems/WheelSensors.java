@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.util.Color;
@@ -24,6 +25,7 @@ public class WheelSensors extends SubsystemBase {
   private Color green;
   private Color blue;
   private Color red;
+  public boolean colorDetectDebug = true;
 
   public WheelSensors() {
     yellow = ColorMatch.makeColor(0.1, 0.2, 0.3);
@@ -62,7 +64,7 @@ public class WheelSensors extends SubsystemBase {
    * "Future attempts to utilize game elements may be implemented, but don't count
    * on it." -Spencer
    */
-  public void autoTurn() {
+  public void turnOnce() {
 
     Color currentColor = colorSensor.getColor();
     // utilizing while loop to make sure it makes a full rotation
@@ -84,8 +86,28 @@ public class WheelSensors extends SubsystemBase {
     wheelTurner.stopMotor();
   }
 
+  public void turnToCorrectColor() {
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if (gameData.length() > 0) {
+      switch (gameData.charAt(0)) {
+      case 'B':
+        break;
+      case 'G':
+        break;
+      case 'R':
+        break;
+      case 'Y':
+        break;
+      default:
+        break;
+      }
+    }
+  }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (colorDetectDebug) {
+      System.out.println(colorSensor.getRawColor());
+    }
   }
 }

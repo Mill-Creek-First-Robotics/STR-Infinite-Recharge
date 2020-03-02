@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class AutoTurn extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final WheelSensors m_autoTurn;
 
   /**
@@ -22,7 +22,7 @@ public class AutoTurn extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoTurn (WheelSensors subsystem) {
+  public AutoTurn(WheelSensors subsystem) {
     m_autoTurn = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_autoTurn);
@@ -31,7 +31,7 @@ public class AutoTurn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_autoTurn.autoTurn();
+    m_autoTurn.turnOnce();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
