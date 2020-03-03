@@ -50,6 +50,11 @@ public class DriveTrain extends SubsystemBase {
     // Disable Encoders
     // m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     // m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    try {
+      m_gyro = new AHRS(SPI.Port.kMXP);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+    }
   }
 
   // @Override
@@ -58,12 +63,6 @@ public class DriveTrain extends SubsystemBase {
     SpeedControllerGroup m_rightMotorGroup = new SpeedControllerGroup(m_rightMotors);
 
     DifferentialDrive m_Drive = new DifferentialDrive(m_leftMotorGroup, m_rightMotorGroup);
-
-    try {
-      m_gyro = new AHRS(SPI.Port.kMXP);
-    } catch (RuntimeException ex) {
-      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-    }
 
   }
 
@@ -147,7 +146,7 @@ public class DriveTrain extends SubsystemBase {
    * @return the robot's heading in degrees, from 180 to 180
    */
   public double getHeading() {
-    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+    return Math.IEEEremainder(m_gyro.getYaw(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
   }
 
   /**
@@ -157,5 +156,13 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (Constants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  @Override
+  public void periodic() {
+    double yaw = m_gyro.getYaw();
+    double roll = m_gyro.getRoll();
+    double pitch = m_gyro.getPitch();
+
   }
 }
