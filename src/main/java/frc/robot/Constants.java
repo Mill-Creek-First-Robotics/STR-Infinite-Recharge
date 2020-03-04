@@ -80,4 +80,7 @@ public final class Constants {
 
   // Motor speeds
   public static final double kDrivetrainSpeedMultiplier = .5;
+
+  public static final String cvNetworkTableName = "chameleon-vision";
+  public static final String cvNetworkTableTargetAngleName = "targetYaw";
 }
