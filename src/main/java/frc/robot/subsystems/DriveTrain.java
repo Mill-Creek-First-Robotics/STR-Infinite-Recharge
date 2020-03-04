@@ -160,9 +160,8 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double yaw = m_gyro.getYaw();
-    double roll = m_gyro.getRoll();
-    double pitch = m_gyro.getPitch();
-
+    // double yaw = m_gyro.getYaw();
+    // double roll = m_gyro.getRoll();
+    // double pitch = m_gyro.getPitch();
   }
 }
