@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,14 +19,18 @@ public class BallShooter extends SubsystemBase {
 
     private boolean isSuccOn = false;
 
-    public BallShooter() {
+    private Solenoid ballHolder;
 
+    public BallShooter() {
+        ballHolder = new Solenoid(Constants.SOLENOID_STOPPER);
+        raiseBallHolder(); // Should default to being up.
     }
 
     /**
      * Method that turns on shooter motors, shooting the ball
      */
     public void pew() {
+        lowerBallHolder();
         // dunno which way these should go so test them later
         spitLeft.set(1);
         spitRight.set(-1);
@@ -36,10 +41,10 @@ public class BallShooter extends SubsystemBase {
         spitRight.stopMotor();
     }
 
-    public void succ() {
+    public void succ(double sped) {
         if (!(isSuccOn)) {
-            succer.setInverted(false);
-            succer.set(-0.5);
+
+            succer.set(-sped);
 
             // sets boolean to true
             isSuccOn = !(isSuccOn);
@@ -55,15 +60,33 @@ public class BallShooter extends SubsystemBase {
 
     public void beltfeed(double sped) {
         if (!isBeltOn) {
-            beltFeed.setInverted(false);
-            beltFeed.set(sped);
+            lowerBallHolder();
+
+            beltFeed.set(-((sped + 1) / 2));
 
             isBeltOn = !(isBeltOn);
         } else {
+            raiseBallHolder();
             beltFeed.stopMotor();
 
             isBeltOn = !(isBeltOn);
         }
+    }
+
+    public void toggleBallHolder() {
+        if (!(ballHolder.get())) {
+            ballHolder.set(true);
+        } else {
+            ballHolder.set(false);
+        }
+    }
+
+    public void lowerBallHolder() {
+        ballHolder.set(false);
+    }
+
+    public void raiseBallHolder() {
+        ballHolder.set(true);
     }
 
     public void initDefaultCommand() {
