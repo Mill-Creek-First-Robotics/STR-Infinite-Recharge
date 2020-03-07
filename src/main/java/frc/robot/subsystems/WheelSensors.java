@@ -27,6 +27,8 @@ public class WheelSensors extends SubsystemBase {
   private Color red;
   public boolean colorDetectDebug = true;
 
+
+
   public WheelSensors() {
     yellow = ColorMatch.makeColor(0.1, 0.2, 0.3);
     green = ColorMatch.makeColor(0.1, 0.2, 0.3);
@@ -58,17 +60,14 @@ public class WheelSensors extends SubsystemBase {
   }
 
   /**
-   * autoTurn A method to rotating the color wheel 1 full rotation and, in theory,
+   * A method to rotating the color wheel 1 full rotation and, in theory,
    * ending on the color it started on.
    * 
-   * "Future attempts to utilize game elements may be implemented, but don't count
-   * on it." -Spencer
+   * 
    */
   public void turnOnce() {
 
     Color currentColor = colorSensor.getColor();
-    // utilizing while loop to make sure it makes a full rotation
-    // don't worry, there will be a failsafe in case it doesn't sense a color change
     int colorChange = 0;
     // TODO: You can increase the speed here depending on how good the color sensor
     // reads color changes for added efficency.
@@ -86,21 +85,49 @@ public class WheelSensors extends SubsystemBase {
     wheelTurner.stopMotor();
   }
 
+  /**
+   * Takes game information and turns the wheel to a specific color
+   */
   public void turnToCorrectColor() {
+
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if (gameData.length() > 0) {
-      switch (gameData.charAt(0)) {
+    if (gameData.length() != 0) {
+      Color colorNeeded;
+     
+
+      switch(gameData.charAt(0)){
       case 'B':
+        colorNeeded = blue;
         break;
       case 'G':
+        colorNeeded = green;
         break;
       case 'R':
+        colorNeeded = red;
         break;
       case 'Y':
+      colorNeeded = yellow;
         break;
       default:
+        colorNeeded = null;
         break;
       }
+
+      boolean onColor = false;
+      while(!onColor)
+      {
+        wheelTurner.set(0.4);
+        ColorMatchResult result = colorMatcher.matchClosestColor(colorSensor.getColor());
+
+        if(result == colorMatcher.matchClosestColor(colorNeeded))
+        {
+          wheelTurner.stopMotor();
+          onColor = true;
+        }
+        System.out.print(colorSensor.getRed() + " " + colorSensor.getBlue() + " " + colorSensor.getGreen());
+      }
+
+
     }
   }
 

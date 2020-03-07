@@ -28,9 +28,11 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.commands.BeltToggle;
 import frc.robot.commands.AutoForward;
+import frc.robot.commands.TurnToColor;
 import frc.robot.subsystems.BallShooter;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.WheelSensors;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -118,6 +120,7 @@ public class RobotContainer {
                 new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_robotDrive).withTimeout(0.1));
                 new JoystickButton(m_rightJoystick, 4)
                                 .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 2).whenPressed(new TurnToColor(m_wheelSensor).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
                 // StopTurning(m_wheelSensor).withTimeout(0.5));
 
