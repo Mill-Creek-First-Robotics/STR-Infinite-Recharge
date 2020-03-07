@@ -27,13 +27,11 @@ public class WheelSensors extends SubsystemBase {
   private Color red;
   public boolean colorDetectDebug = true;
 
-
-
   public WheelSensors() {
-    yellow = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    green = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    blue = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    red = ColorMatch.makeColor(0.1, 0.2, 0.3);
+    yellow = ColorMatch.makeColor(3392, 1232, 5833);
+    green = ColorMatch.makeColor(674, 941, 2206);
+    blue = ColorMatch.makeColor(434, 1260, 1355);
+    red = ColorMatch.makeColor(2325, 577, 1570);
     colorMatcher.addColorMatch(yellow);
     colorMatcher.addColorMatch(red);
     colorMatcher.addColorMatch(blue);
@@ -60,8 +58,8 @@ public class WheelSensors extends SubsystemBase {
   }
 
   /**
-   * A method to rotating the color wheel 1 full rotation and, in theory,
-   * ending on the color it started on.
+   * A method to rotating the color wheel 1 full rotation and, in theory, ending
+   * on the color it started on.
    * 
    * 
    */
@@ -93,9 +91,8 @@ public class WheelSensors extends SubsystemBase {
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     if (gameData.length() != 0) {
       Color colorNeeded;
-     
 
-      switch(gameData.charAt(0)){
+      switch (gameData.charAt(0)) {
       case 'B':
         colorNeeded = blue;
         break;
@@ -106,7 +103,7 @@ public class WheelSensors extends SubsystemBase {
         colorNeeded = red;
         break;
       case 'Y':
-      colorNeeded = yellow;
+        colorNeeded = yellow;
         break;
       default:
         colorNeeded = null;
@@ -114,19 +111,16 @@ public class WheelSensors extends SubsystemBase {
       }
 
       boolean onColor = false;
-      while(!onColor)
-      {
+      while (!onColor) {
         wheelTurner.set(0.4);
         ColorMatchResult result = colorMatcher.matchClosestColor(colorSensor.getColor());
 
-        if(result == colorMatcher.matchClosestColor(colorNeeded))
-        {
+        if (result == colorMatcher.matchClosestColor(colorNeeded)) {
           wheelTurner.stopMotor();
           onColor = true;
         }
         System.out.print(colorSensor.getRed() + " " + colorSensor.getBlue() + " " + colorSensor.getGreen());
       }
-
 
     }
   }
@@ -134,7 +128,7 @@ public class WheelSensors extends SubsystemBase {
   @Override
   public void periodic() {
     if (colorDetectDebug) {
-      System.out.println(colorSensor.getRawColor());
+      System.out.println(colorSensor.getRed() + " " + colorSensor.getBlue() + " " + colorSensor.getGreen());
     }
   }
 }
