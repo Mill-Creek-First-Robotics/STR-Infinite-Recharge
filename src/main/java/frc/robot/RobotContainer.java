@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.Constants;
-import frc.robot.commands.ColorWheelArm;
+
 import frc.robot.commands.ColorWheelStartTurning;
 import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
@@ -30,7 +30,6 @@ import frc.robot.commands.BeltToggle;
 import frc.robot.commands.AutoForward;
 import frc.robot.subsystems.BallShooter;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.WheelSensors;
 
 /**
@@ -44,7 +43,6 @@ public class RobotContainer {
         // The robot's subsystems
         private DriveTrain m_robotDrive;
         private BallShooter m_BallShooter;
-        private Pneumatics m_Pneumatics;
         private WheelSensors m_wheelSensor;
         // The driver's controller
         Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
@@ -56,7 +54,6 @@ public class RobotContainer {
         public RobotContainer() {
                 m_robotDrive = Robot.m_driveTrain;
                 m_BallShooter = Robot.m_ballShooter;
-                m_Pneumatics = Robot.m_pneumatics;
                 m_wheelSensor = Robot.m_wheelSensor;
                 // Configure the button bindings
                 configureButtonBindings();
@@ -118,8 +115,7 @@ public class RobotContainer {
                                 .whenPressed(new ToggleBallHolder(m_BallShooter).withTimeout(0.1));
                 // Evan Hutchinson: I'd like this to engage when GetBalls stops running and
                 // disengage when GetBalls starts running
-                new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_Pneumatics).withTimeout(0.1));
-                new JoystickButton(m_rightJoystick, 3).whenPressed(new ColorWheelArm(m_Pneumatics).withTimeout(0.5));
+                new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_robotDrive).withTimeout(0.1));
                 new JoystickButton(m_rightJoystick, 4)
                                 .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
