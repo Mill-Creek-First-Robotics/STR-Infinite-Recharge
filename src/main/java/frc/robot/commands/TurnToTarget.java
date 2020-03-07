@@ -13,7 +13,6 @@ import frc.robot.commands.TurnToAngle;
  */
 public class TurnToTarget extends SequentialCommandGroup {
 
-    private double targetAngleDegrees;
     private NetworkTable cvNetworkTable;
     private NetworkTableEntry targetAngle;
 
