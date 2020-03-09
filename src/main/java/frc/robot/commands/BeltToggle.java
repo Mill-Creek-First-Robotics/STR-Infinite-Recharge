@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.BallShooter;
+import frc.robot.subsystems.BallMover;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class BeltToggle extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final BallShooter m_ballShooter;
+  private final BallMover m_ballShooter;
 
   /**
    * Creates a new ExampleCommand.
@@ -18,7 +18,7 @@ public class BeltToggle extends CommandBase {
    */
   Joystick input;
 
-  public BeltToggle(BallShooter subsystem, Joystick joystick) {
+  public BeltToggle(BallMover subsystem, Joystick joystick) {
     m_ballShooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballShooter);

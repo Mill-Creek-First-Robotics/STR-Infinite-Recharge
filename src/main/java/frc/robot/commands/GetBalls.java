@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.BallShooter;
+import frc.robot.subsystems.BallMover;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class GetBalls extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final BallShooter m_ballShooter;
+  private final BallMover m_ballShooter;
   private Double speed;
 
   /**
@@ -16,7 +16,7 @@ public class GetBalls extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public GetBalls(BallShooter subsystem, double spd) {
+  public GetBalls(BallMover subsystem, double spd) {
     m_ballShooter = subsystem;
     speed = spd;
     // Use addRequirements() here to declare subsystem dependencies.

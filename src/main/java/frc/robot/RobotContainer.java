@@ -29,10 +29,9 @@ import frc.robot.commands.TurnToAngleProfiled;
 import frc.robot.commands.BeltToggle;
 import frc.robot.commands.AutoForward;
 import frc.robot.commands.TurnToColor;
-import frc.robot.subsystems.BallShooter;
+import frc.robot.subsystems.BallMover;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.WheelSensors;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -44,7 +43,7 @@ import frc.robot.subsystems.WheelSensors;
 public class RobotContainer {
         // The robot's subsystems
         private DriveTrain m_robotDrive;
-        private BallShooter m_BallShooter;
+        private BallMover m_BallShooter;
         private WheelSensors m_wheelSensor;
         // The driver's controller
         Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
@@ -111,8 +110,8 @@ public class RobotContainer {
 
                 new JoystickButton(m_rightJoystick, 5).whenPressed(new GetBalls(m_BallShooter, 0.3).withTimeout(5));
 
-                new JoystickButton(m_rightJoystick, 1)
-                                .whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick).withTimeout(0.1));
+                new JoystickButton(m_rightJoystick, 1).whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick))
+                                .whenReleased(new BeltToggle(m_BallShooter, m_rightJoystick));
                 new JoystickButton(m_rightJoystick, 6)
                                 .whenPressed(new ToggleBallHolder(m_BallShooter).withTimeout(0.1));
                 // Evan Hutchinson: I'd like this to engage when GetBalls stops running and
