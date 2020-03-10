@@ -41,7 +41,7 @@ public final class Constants {
 
   // Motors/other devices having to do with the hanger
   public static final int MOTOR_SPOOL = 11111;
-  public static final int MOTOR_HOOK = 438953;
+  public static final int MOTOR_HOOK = 7;
 
   // sensors/motors needed for the wheelturner
   public static final int MOTOR_TURNER = 8; // moved by mechanical
