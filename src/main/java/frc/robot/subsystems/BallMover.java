@@ -10,63 +10,30 @@ public class BallMover extends SubsystemBase {
 
     // All motors declared
     // TODO: probably should rename these
-    private WPI_TalonSRX succer = new WPI_TalonSRX(Constants.MOTOR_INTAKE);
 
     private WPI_TalonSRX spitLeft = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_LEFT);
     private WPI_TalonSRX spitRight = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_RIGHT);
 
     private WPI_TalonSRX beltFeed = new WPI_TalonSRX(Constants.MOTOR_CONVEYOR);
 
-    private boolean isSuccOn = false;
-
     private Solenoid ballHolder;
 
     public BallMover() {
         ballHolder = new Solenoid(Constants.SOLENOID_STOPPER);
-        raiseBallHolder(); // Should default to being up.
-    }
-
-    /**
-     * Method that turns on shooter motors, shooting the ball
-     */
-    public void pew() {
-        lowerBallHolder();
-        // dunno which way these should go so test them later
-        spitLeft.set(1);
-        spitRight.set(-1);
-    }
-
-    public void stopPew() {
-        spitLeft.stopMotor();
-        spitRight.stopMotor();
-    }
-
-    public void succ(double sped) {
-        if (!(isSuccOn)) {
-
-            succer.set(-sped);
-
-            // sets boolean to true
-            isSuccOn = !(isSuccOn);
-        } else {
-            succer.stopMotor();
-
-            // sets boolean to false
-            isSuccOn = !(isSuccOn);
-        }
+        lowerBallHolder(); // Should default to being up.
     }
 
     private boolean isBeltOn = false;
 
     public void beltfeed(double speed) {
         if (!isBeltOn) {
-            lowerBallHolder();
+            raiseBallHolder();
 
             beltFeed.set(-speed);
 
             isBeltOn = !(isBeltOn);
         } else {
-            raiseBallHolder();
+            lowerBallHolder();
             beltFeed.stopMotor();
 
             isBeltOn = !(isBeltOn);
