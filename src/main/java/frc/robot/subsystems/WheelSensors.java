@@ -25,7 +25,7 @@ public class WheelSensors extends SubsystemBase {
   private Color green;
   private Color blue;
   private Color red;
-  public boolean colorDetectDebug = true;
+  public boolean colorDetectDebug = false;
 
   public WheelSensors() {
     yellow = ColorMatch.makeColor(3392, 1232, 5833);

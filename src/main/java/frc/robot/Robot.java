@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_driveTrain;
   public static BallMover m_ballShooter;
   public static WheelSensors m_wheelSensor;
+  public static Hanger m_hanger;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -41,6 +42,9 @@ public class Robot extends TimedRobot {
     m_driveTrain = new DriveTrain();
     m_ballShooter = new BallMover();
     m_wheelSensor = new WheelSensors();
+    m_hanger = new Hanger();
+
+    // Robot Container, alwasy after subsystems
     m_robotContainer = new RobotContainer();
 
   }

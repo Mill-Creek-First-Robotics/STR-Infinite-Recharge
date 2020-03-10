@@ -20,8 +20,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
 import frc.robot.commands.ColorWheelStartTurning;
+import frc.robot.commands.ExtendHanger;
 import frc.robot.commands.Gearswitch;
 import frc.robot.commands.GetBalls;
+import frc.robot.commands.RetractHanger;
+import frc.robot.commands.StopHanger;
 import frc.robot.commands.StopTurning;
 import frc.robot.commands.ToggleBallHolder;
 import frc.robot.commands.TurnToAngle;
@@ -31,6 +34,7 @@ import frc.robot.commands.AutoForward;
 import frc.robot.commands.TurnToColor;
 import frc.robot.subsystems.BallMover;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.WheelSensors;
 
 /**
@@ -47,6 +51,7 @@ public class RobotContainer {
         private WheelSensors m_wheelSensor;
         // The driver's controller
         Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
+        private Hanger m_hanger;
         static Joystick m_rightJoystick = new Joystick(Constants.RIGHT_CONTROLLER);
 
         /**
@@ -56,6 +61,7 @@ public class RobotContainer {
                 m_robotDrive = Robot.m_driveTrain;
                 m_BallShooter = Robot.m_ballShooter;
                 m_wheelSensor = Robot.m_wheelSensor;
+                m_hanger = Robot.m_hanger;
                 // Configure the button bindings
                 configureButtonBindings();
 
@@ -120,6 +126,9 @@ public class RobotContainer {
                 new JoystickButton(m_rightJoystick, 4)
                                 .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
                 new JoystickButton(m_leftJoystick, 2).whenPressed(new TurnToColor(m_wheelSensor).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 12).whenPressed(new ExtendHanger(m_hanger).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 11).whenPressed(new RetractHanger(m_hanger).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 9).whenPressed(new StopHanger(m_hanger).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
                 // StopTurning(m_wheelSensor).withTimeout(0.5));
 
