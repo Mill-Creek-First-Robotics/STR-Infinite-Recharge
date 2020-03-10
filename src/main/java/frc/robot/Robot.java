@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
 
   private static RobotContainer m_robotContainer;
   public static DriveTrain m_driveTrain;
-  public static BallMover m_ballShooter;
+  public static BallMover m_ballMover;
   public static WheelSensors m_wheelSensor;
   public static Hanger m_hanger;
 
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 
     // place subsystems here
     m_driveTrain = new DriveTrain();
-    m_ballShooter = new BallMover();
+    m_ballMover = new BallMover();
     m_wheelSensor = new WheelSensors();
     m_hanger = new Hanger();
 

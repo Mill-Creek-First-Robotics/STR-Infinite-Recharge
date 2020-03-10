@@ -22,7 +22,6 @@ import frc.robot.Constants;
 import frc.robot.commands.ColorWheelStartTurning;
 import frc.robot.commands.ExtendHanger;
 import frc.robot.commands.Gearswitch;
-import frc.robot.commands.GetBalls;
 import frc.robot.commands.RetractHanger;
 import frc.robot.commands.StopHanger;
 import frc.robot.commands.StopTurning;
@@ -47,7 +46,7 @@ import frc.robot.subsystems.WheelSensors;
 public class RobotContainer {
         // The robot's subsystems
         private DriveTrain m_robotDrive;
-        private BallMover m_BallShooter;
+        private BallMover m_BallMover;
         private WheelSensors m_wheelSensor;
         // The driver's controller
         Joystick m_leftJoystick = new Joystick(Constants.LEFT_CONTROLLER);
@@ -59,7 +58,7 @@ public class RobotContainer {
          */
         public RobotContainer() {
                 m_robotDrive = Robot.m_driveTrain;
-                m_BallShooter = Robot.m_ballShooter;
+                m_BallMover = Robot.m_ballMover;
                 m_wheelSensor = Robot.m_wheelSensor;
                 m_hanger = Robot.m_hanger;
                 // Configure the button bindings
@@ -114,20 +113,17 @@ public class RobotContainer {
                 // new JoystickButton(m_rightJoystick, 6)
                 // .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
 
-                new JoystickButton(m_rightJoystick, 5).whenPressed(new GetBalls(m_BallShooter, 0.3).withTimeout(5));
-
-                new JoystickButton(m_rightJoystick, 1).whenPressed(new BeltToggle(m_BallShooter, m_rightJoystick))
-                                .whenReleased(new BeltToggle(m_BallShooter, m_rightJoystick));
-                new JoystickButton(m_rightJoystick, 6)
-                                .whenPressed(new ToggleBallHolder(m_BallShooter).withTimeout(0.1));
+                new JoystickButton(m_rightJoystick, 1).whenPressed(new BeltToggle(m_BallMover, m_rightJoystick))
+                                .whenReleased(new BeltToggle(m_BallMover, m_rightJoystick));
+                new JoystickButton(m_rightJoystick, 6).whenPressed(new ToggleBallHolder(m_BallMover).withTimeout(0.1));
                 // Evan Hutchinson: I'd like this to engage when GetBalls stops running and
                 // disengage when GetBalls starts running
                 new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_robotDrive).withTimeout(0.1));
                 new JoystickButton(m_rightJoystick, 4)
                                 .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
                 new JoystickButton(m_leftJoystick, 2).whenPressed(new TurnToColor(m_wheelSensor).withTimeout(0.5));
-                new JoystickButton(m_leftJoystick, 12).whenPressed(new ExtendHanger(m_hanger).withTimeout(0.5));
-                new JoystickButton(m_leftJoystick, 11).whenPressed(new RetractHanger(m_hanger).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 11).whenPressed(new ExtendHanger(m_hanger).withTimeout(0.5));
+                new JoystickButton(m_leftJoystick, 12).whenPressed(new RetractHanger(m_hanger).withTimeout(0.5));
                 new JoystickButton(m_leftJoystick, 9).whenPressed(new StopHanger(m_hanger).withTimeout(0.5));
                 // new JoystickButton(m_leftJoystick, 8).whenPressed(new
                 // StopTurning(m_wheelSensor).withTimeout(0.5));
