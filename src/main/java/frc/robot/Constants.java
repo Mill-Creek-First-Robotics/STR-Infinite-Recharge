@@ -80,5 +80,5 @@ public final class Constants {
 
   // Motor speeds
   public static final double kDrivetrainSpeedMultiplier = .5;
-  public static final double kHangerSpeed = 0.2;
+  public static final double kHangerSpeed = 0.7;
 }
