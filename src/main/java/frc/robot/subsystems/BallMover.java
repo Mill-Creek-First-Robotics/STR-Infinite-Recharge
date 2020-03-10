@@ -46,11 +46,11 @@ public class BallMover extends SubsystemBase {
 
     // TODO: Make commands for these two
     public void lowerBallHolder() {
-        ballHolder.set(true);
+        ballHolder.set(false);
     }
 
     public void raiseBallHolder() {
-        ballHolder.set(false);
+        ballHolder.set(true);
     }
 
     public void initDefaultCommand() {
