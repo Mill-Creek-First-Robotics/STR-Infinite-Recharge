@@ -7,35 +7,21 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  * An example command that uses an example subsystem.
  */
-public class BeltToggle extends CommandBase {
+public class BallHolderToggle extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final BallMover m_ballShooter;
+  private final BallMover m_ballMover;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  Joystick input;
-
-  public BeltToggle(BallMover subsystem, Joystick joystick) {
-    m_ballShooter = subsystem;
+  public BallHolderToggle(BallMover subsystem) {
+    m_ballMover = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_ballShooter);
-    input = joystick;
+    addRequirements(m_ballMover);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    // TODO: Make speeds on presents
-    m_ballShooter.beltfeed(input.getThrottle());
+    m_ballMover.toggleBallHolder();
   }
 
   // Returns true when the command should end.

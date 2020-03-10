@@ -9,10 +9,6 @@ import frc.robot.Constants;
 public class BallMover extends SubsystemBase {
 
     // All motors declared
-    // TODO: probably should rename these
-
-    private WPI_TalonSRX spitLeft = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_LEFT);
-    private WPI_TalonSRX spitRight = new WPI_TalonSRX(Constants.MOTOR_LAUNCHER_RIGHT);
 
     private WPI_TalonSRX beltFeed = new WPI_TalonSRX(Constants.MOTOR_CONVEYOR);
 
@@ -25,15 +21,15 @@ public class BallMover extends SubsystemBase {
 
     private boolean isBeltOn = false;
 
+    // TODO: Make not a toggle
     public void beltfeed(double speed) {
         if (!isBeltOn) {
-            raiseBallHolder();
 
             beltFeed.set(-speed);
 
             isBeltOn = !(isBeltOn);
         } else {
-            lowerBallHolder();
+
             beltFeed.stopMotor();
 
             isBeltOn = !(isBeltOn);
@@ -48,12 +44,13 @@ public class BallMover extends SubsystemBase {
         }
     }
 
+    // TODO: Make commands for these two
     public void lowerBallHolder() {
-        ballHolder.set(false);
+        ballHolder.set(true);
     }
 
     public void raiseBallHolder() {
-        ballHolder.set(true);
+        ballHolder.set(false);
     }
 
     public void initDefaultCommand() {
