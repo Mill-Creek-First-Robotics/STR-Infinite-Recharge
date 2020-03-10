@@ -21,6 +21,8 @@ public class Hanger extends SubsystemBase {
   }
 
   public void stopHangerMotor() {
+    hook.set(0);
+    spool.set(0);
     hook.stopMotor();
     spool.stopMotor();
   }
