@@ -8,43 +8,80 @@ import frc.robot.Constants;
 
 public class BallMover extends SubsystemBase {
 
+    public enum RollerSpeedModeTypes {
+        Slow, Fast, Reverse
+    }
+
     // All motors declared
 
-    private WPI_TalonSRX beltFeed = new WPI_TalonSRX(Constants.MOTOR_CONVEYOR);
+    private WPI_TalonSRX rollers = new WPI_TalonSRX(Constants.MOTOR_ROLLERS);
 
     private Solenoid ballHolder;
+
+    private double[] rollerSpeedModes = { 0.4, 0.8, -0.2 };
+    private int currentRollerSpeedMode;
 
     public BallMover() {
         ballHolder = new Solenoid(Constants.SOLENOID_STOPPER);
         lowerBallHolder(); // Should default to being up.
     }
 
+    public double getCurrentRollerSpeed() {
+        return rollerSpeedModes[currentRollerSpeedMode];
+    }
+
+    public int getCurrentRollerSpeedMode() {
+        return currentRollerSpeedMode;
+    }
+
+    public void setCurrentRollerSpeedMode(int currentRollerSpeedMode) {
+        // Loops the roller speed modes if the value is higher than 3
+        this.currentRollerSpeedMode = currentRollerSpeedMode % (rollerSpeedModes.length + 1);
+    }
+
     private boolean isBeltOn = false;
 
-    // TODO: Make not a toggle
-    public void beltfeed(double speed) {
+    // Uses speed modes
+    public void startRollers() {
+        rollers.set(getCurrentRollerSpeed());
+        isBeltOn = !(isBeltOn);
+    }
+
+    public void startRollers(double speed) {
+        rollers.set(-speed);
+        isBeltOn = !(isBeltOn);
+    }
+
+    public void stopRollers() {
+        rollers.stopMotor();
+        isBeltOn = !(isBeltOn);
+    }
+
+    public void toggleRollers(double speed) {
         if (!isBeltOn) {
-
-            beltFeed.set(-speed);
-
-            isBeltOn = !(isBeltOn);
+            startRollers(speed);
         } else {
+            stopRollers();
+        }
+    }
 
-            beltFeed.stopMotor();
-
-            isBeltOn = !(isBeltOn);
+    // Uses speed modes
+    public void toggleRollers() {
+        if (!isBeltOn) {
+            startRollers();
+        } else {
+            stopRollers();
         }
     }
 
     public void toggleBallHolder() {
         if (!(ballHolder.get())) {
-            ballHolder.set(true);
+            raiseBallHolder();
         } else {
-            ballHolder.set(false);
+            lowerBallHolder();
         }
     }
 
-    // TODO: Make commands for these two
     public void lowerBallHolder() {
         ballHolder.set(false);
     }

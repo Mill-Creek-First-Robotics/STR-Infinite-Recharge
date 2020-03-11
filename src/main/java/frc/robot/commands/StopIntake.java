@@ -2,12 +2,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.BallMover;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class BeltToggle extends CommandBase {
+public class StopIntake extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final BallMover m_ballShooter;
 
@@ -16,13 +15,12 @@ public class BeltToggle extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  Joystick input;
 
-  public BeltToggle(BallMover subsystem, Joystick joystick) {
+  public StopIntake(BallMover subsystem) {
     m_ballShooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballShooter);
-    input = joystick;
+
   }
 
   // Called when the command is initially scheduled.
@@ -35,7 +33,7 @@ public class BeltToggle extends CommandBase {
   @Override
   public void execute() {
     // TODO: Make speeds on presents
-    m_ballShooter.beltfeed(input.getThrottle());
+    m_ballShooter.stopRollers();
   }
 
   // Returns true when the command should end.

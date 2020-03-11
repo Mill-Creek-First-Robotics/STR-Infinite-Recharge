@@ -10,27 +10,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.Constants;
-
+import frc.robot.commands.AutoForward;
+import frc.robot.commands.BallHolderToggle;
 import frc.robot.commands.ColorWheelStartTurning;
 import frc.robot.commands.ExtendHanger;
 import frc.robot.commands.Gearswitch;
 import frc.robot.commands.RetractHanger;
+import frc.robot.commands.SetIntakeSpeedMode;
+import frc.robot.commands.StartIntake;
 import frc.robot.commands.StopHanger;
-import frc.robot.commands.StopTurning;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.ToggleBallHolder;
-import frc.robot.commands.TurnToAngle;
-import frc.robot.commands.TurnToAngleProfiled;
-import frc.robot.commands.BeltToggle;
-import frc.robot.commands.AutoForward;
-import frc.robot.commands.BallHolderToggle;
 import frc.robot.commands.TurnToColor;
 import frc.robot.subsystems.BallMover;
 import frc.robot.subsystems.DriveTrain;
@@ -113,18 +107,23 @@ public class RobotContainer {
                 // second timeout
                 // new JoystickButton(m_rightJoystick, 6)
                 // .whenPressed(new TurnToAngleProfiled(-90, m_robotDrive).withTimeout(5));
-                // TODO: Fix this momentary command
-                new JoystickButton(m_rightJoystick, 1).whenPressed(new BeltToggle(m_ballMover, m_rightJoystick))
-                                .whenReleased(new BeltToggle(m_ballMover, m_rightJoystick));
+
+                new JoystickButton(m_rightJoystick, 1).whenPressed(new StartIntake(m_ballMover, m_rightJoystick))
+                                .whenReleased(new StopIntake(m_ballMover));
+                new JoystickButton(m_rightJoystick, 11)
+                                .whenPressed(new SetIntakeSpeedMode(m_ballMover, BallMover.RollerSpeedModeTypes.Slow));
+                new JoystickButton(m_rightJoystick, 9)
+                                .whenPressed(new SetIntakeSpeedMode(m_ballMover, BallMover.RollerSpeedModeTypes.Fast));
+                new JoystickButton(m_rightJoystick, 7).whenPressed(
+                                new SetIntakeSpeedMode(m_ballMover, BallMover.RollerSpeedModeTypes.Reverse));
                 new JoystickButton(m_rightJoystick, 6).whenPressed(new ToggleBallHolder(m_ballMover).withTimeout(0.1));
                 // Evan Hutchinson: I'd like this to engage when GetBalls stops running and
                 // disengage when GetBalls starts running
                 new JoystickButton(m_rightJoystick, 2).whenPressed(new Gearswitch(m_robotDrive).withTimeout(0.1));
                 new JoystickButton(m_rightJoystick, 4)
                                 .whenPressed(new ColorWheelStartTurning(m_wheelSensor, 0.4).withTimeout(0.5));
-                // TODO: Fix this momentary command
-                new JoystickButton(m_rightJoystick, 3).whenPressed(new BallHolderToggle(m_ballMover).withTimeout(0.5))
-                                .whenReleased(new BallHolderToggle(m_ballMover));
+
+                new JoystickButton(m_rightJoystick, 3).whenPressed(new BallHolderToggle(m_ballMover).withTimeout(0.5));
                 new JoystickButton(m_leftJoystick, 2).whenPressed(new TurnToColor(m_wheelSensor).withTimeout(0.5));
                 new JoystickButton(m_leftJoystick, 11).whenPressed(new ExtendHanger(m_hanger).withTimeout(0.5))
                                 .whenReleased(new StopHanger(m_hanger).withTimeout(0.5));

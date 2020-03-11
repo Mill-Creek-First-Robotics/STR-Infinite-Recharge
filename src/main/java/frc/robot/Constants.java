@@ -37,7 +37,7 @@ public final class Constants {
   public static final int MOTOR_LAUNCHER_LEFT = 14;
   public static final int MOTOR_LAUNCHER_RIGHT = 15;
   public static final int MOTOR_INTAKE = 4; // moved by mechanical
-  public static final int MOTOR_CONVEYOR = 3; // moved by mechanical
+  public static final int MOTOR_ROLLERS = 3; // moved by mechanical
 
   // Motors/other devices having to do with the hanger
   public static final int MOTOR_SPOOL = 11111;
@@ -80,5 +80,5 @@ public final class Constants {
 
   // Motor speeds
   public static final double kDrivetrainSpeedMultiplier = .5;
-  public static final double kHangerSpeed = 0.7;
+  public static final double kHangerSpeed = 0.8;
 }

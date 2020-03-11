@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class BallHolderToggle extends CommandBase {
+public class EngageBallHolder extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final BallMover m_ballMover;
 
-  public BallHolderToggle(BallMover subsystem) {
+  public EngageBallHolder(BallMover subsystem) {
     m_ballMover = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ballMover);
@@ -20,7 +20,7 @@ public class BallHolderToggle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_ballMover.toggleBallHolder();
+    m_ballMover.raiseBallHolder();
   }
 
   // Returns true when the command should end.
