@@ -7,10 +7,12 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -29,6 +31,9 @@ public class DriveTrain extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
   private Solenoid gearBox = new Solenoid(Constants.SOLENOID_GEARSWITCH);
 
+  // The robot's gyro/AHRS
+  private AHRS m_gyro;
+
   // // The left-side drive encoder
   // private final Encoder m_leftEncoder =
   // new Encoder(Constants.kLeftEncoderPorts[0], Constants.kLeftEncoderPorts[1],
@@ -39,35 +44,6 @@ public class DriveTrain extends SubsystemBase {
   // new Encoder(Constants.kRightEncoderPorts[0], Constants.kRightEncoderPorts[1],
   // Constants.kRightEncoderReversed);
 
-  // The gyro sensor
-  private final Gyro m_gyro = new Gyro() {
-
-    @Override
-    public void close() throws Exception {
-
-    }
-
-    @Override
-    public void reset() {
-
-    }
-
-    @Override
-    public double getRate() {
-      return 0;
-    }
-
-    @Override
-    public double getAngle() {
-      return 0;
-    }
-
-    @Override
-    public void calibrate() {
-
-    }
-  };
-
   /**
    * Creates a new DriveSubsystem.
    */
@@ -76,6 +52,11 @@ public class DriveTrain extends SubsystemBase {
     // Disable Encoders
     // m_leftEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
     // m_rightEncoder.setDistancePerPulse(Constants.kEncoderDistancePerPulse);
+    try {
+      m_gyro = new AHRS(SPI.Port.kMXP);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+    }
   }
 
   // @Override
@@ -174,7 +155,7 @@ public class DriveTrain extends SubsystemBase {
    * @return the robot's heading in degrees, from 180 to 180
    */
   public double getHeading() {
-    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
+    return Math.IEEEremainder(m_gyro.getYaw(), 360) * (Constants.kGyroReversed ? -1.0 : 1.0);
   }
 
   /**
@@ -184,5 +165,12 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (Constants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  @Override
+  public void periodic() {
+    // double yaw = m_gyro.getYaw();
+    // double roll = m_gyro.getRoll();
+    // double pitch = m_gyro.getPitch();
   }
 }

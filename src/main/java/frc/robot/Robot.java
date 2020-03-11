@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,6 +28,7 @@ public class Robot extends TimedRobot {
   public static BallMover m_ballMover;
   public static WheelSensors m_wheelSensor;
   public static Hanger m_hanger;
+  public static NetworkTableInstance m_netTable;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -37,6 +39,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
+
+    m_netTable = NetworkTableInstance.getDefault();
 
     // place subsystems here
     m_driveTrain = new DriveTrain();
