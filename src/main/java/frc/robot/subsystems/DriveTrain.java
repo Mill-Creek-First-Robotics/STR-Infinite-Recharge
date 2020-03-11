@@ -14,6 +14,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Solenoid;
 
 import frc.robot.Constants;
 
@@ -28,6 +29,7 @@ public class DriveTrain extends SubsystemBase {
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  private Solenoid gearBox = new Solenoid(Constants.SOLENOID_GEARSWITCH);
 
   // The robot's gyro/AHRS
   private AHRS m_gyro;
@@ -87,6 +89,13 @@ public class DriveTrain extends SubsystemBase {
     m_drive.tankDrive(left * Constants.kDrivetrainSpeedMultiplier, right * Constants.kDrivetrainSpeedMultiplier, true);
   }
 
+  public void gearSwitch() {
+    if (!(gearBox.get())) {
+      gearBox.set(true);
+    } else {
+      gearBox.set(false);
+    }
+  }
   // /**
   // * Resets the drive encoders to currently read a position of 0.
   // */

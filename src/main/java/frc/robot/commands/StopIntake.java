@@ -1,31 +1,39 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.BallMover;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ColorWheelArm extends CommandBase {
+public class StopIntake extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Pneumatics m_pneumatics;
+  private final BallMover m_ballShooter;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ColorWheelArm(Pneumatics subsystem) {
-    m_pneumatics = subsystem;
+
+  public StopIntake(BallMover subsystem) {
+    m_ballShooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.m_pneumatics);
+    addRequirements(m_ballShooter);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_pneumatics.extendWheel();
+
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    // TODO: Make speeds on presents
+    m_ballShooter.stopRollers();
   }
 
   // Returns true when the command should end.

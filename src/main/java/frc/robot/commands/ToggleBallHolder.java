@@ -1,12 +1,12 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.BallShooter;
+import frc.robot.subsystems.BallMover;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ToggleBallHolder extends CommandBase {
-    private final BallShooter m_ballShooter;
+    private final BallMover m_ballShooter;
 
-    public ToggleBallHolder(BallShooter subsystem) {
+    public ToggleBallHolder(BallMover subsystem) {
         m_ballShooter = subsystem;
 
         addRequirements(m_ballShooter);

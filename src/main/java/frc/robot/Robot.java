@@ -25,9 +25,9 @@ public class Robot extends TimedRobot {
 
   private static RobotContainer m_robotContainer;
   public static DriveTrain m_driveTrain;
-  public static Pneumatics m_pneumatics;
-  public static BallShooter m_ballShooter;
+  public static BallMover m_ballMover;
   public static WheelSensors m_wheelSensor;
+  public static Hanger m_hanger;
   public static NetworkTableInstance m_netTable;
 
   /**
@@ -44,9 +44,11 @@ public class Robot extends TimedRobot {
 
     // place subsystems here
     m_driveTrain = new DriveTrain();
-    m_pneumatics = new Pneumatics();
-    m_ballShooter = new BallShooter();
+    m_ballMover = new BallMover();
     m_wheelSensor = new WheelSensors();
+    m_hanger = new Hanger();
+
+    // Robot Container, alwasy after subsystems
     m_robotContainer = new RobotContainer();
 
   }

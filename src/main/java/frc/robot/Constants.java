@@ -37,11 +37,11 @@ public final class Constants {
   public static final int MOTOR_LAUNCHER_LEFT = 14;
   public static final int MOTOR_LAUNCHER_RIGHT = 15;
   public static final int MOTOR_INTAKE = 4; // moved by mechanical
-  public static final int MOTOR_CONVEYOR = 3; // moved by mechanical
+  public static final int MOTOR_ROLLERS = 3; // moved by mechanical
 
   // Motors/other devices having to do with the hanger
   public static final int MOTOR_SPOOL = 11111;
-  public static final int MOTOR_HOOK = 438953;
+  public static final int MOTOR_HOOK = 7;
 
   // sensors/motors needed for the wheelturner
   public static final int MOTOR_TURNER = 8; // moved by mechanical
@@ -80,6 +80,7 @@ public final class Constants {
 
   // Motor speeds
   public static final double kDrivetrainSpeedMultiplier = .5;
+  public static final double kHangerSpeed = 0.8;
 
   public static final String cvNetworkTableName = "chameleon-vision";
   public static final String cvNetworkTableTargetAngleName = "targetYaw";

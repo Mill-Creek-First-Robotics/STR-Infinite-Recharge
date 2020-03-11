@@ -1,18 +1,16 @@
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.util.Color;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorMatch;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class WheelSensors extends SubsystemBase {
   SpeedController wheelTurner = new WPI_TalonSRX(Constants.MOTOR_TURNER);
@@ -25,13 +23,13 @@ public class WheelSensors extends SubsystemBase {
   private Color green;
   private Color blue;
   private Color red;
-  public boolean colorDetectDebug = true;
+  public boolean colorDetectDebug = false;
 
   public WheelSensors() {
-    yellow = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    green = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    blue = ColorMatch.makeColor(0.1, 0.2, 0.3);
-    red = ColorMatch.makeColor(0.1, 0.2, 0.3);
+    yellow = ColorMatch.makeColor(3392, 1232, 5833);
+    green = ColorMatch.makeColor(674, 941, 2206);
+    blue = ColorMatch.makeColor(434, 1260, 1355);
+    red = ColorMatch.makeColor(2325, 577, 1570);
     colorMatcher.addColorMatch(yellow);
     colorMatcher.addColorMatch(red);
     colorMatcher.addColorMatch(blue);
@@ -58,17 +56,14 @@ public class WheelSensors extends SubsystemBase {
   }
 
   /**
-   * autoTurn A method to rotating the color wheel 1 full rotation and, in theory,
-   * ending on the color it started on.
+   * A method to rotating the color wheel 1 full rotation and, in theory, ending
+   * on the color it started on.
    * 
-   * "Future attempts to utilize game elements may be implemented, but don't count
-   * on it." -Spencer
+   * 
    */
   public void turnOnce() {
 
     Color currentColor = colorSensor.getColor();
-    // utilizing while loop to make sure it makes a full rotation
-    // don't worry, there will be a failsafe in case it doesn't sense a color change
     int colorChange = 0;
     // TODO: You can increase the speed here depending on how good the color sensor
     // reads color changes for added efficency.
@@ -86,28 +81,52 @@ public class WheelSensors extends SubsystemBase {
     wheelTurner.stopMotor();
   }
 
+  /**
+   * Takes game information and turns the wheel to a specific color
+   */
   public void turnToCorrectColor() {
+
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if (gameData.length() > 0) {
+    if (gameData.length() != 0) {
+      Color colorNeeded;
+
       switch (gameData.charAt(0)) {
-      case 'B':
-        break;
-      case 'G':
-        break;
-      case 'R':
-        break;
-      case 'Y':
-        break;
-      default:
-        break;
+        case 'B':
+          colorNeeded = blue;
+          break;
+        case 'G':
+          colorNeeded = green;
+          break;
+        case 'R':
+          colorNeeded = red;
+          break;
+        case 'Y':
+          colorNeeded = yellow;
+          break;
+        default:
+          colorNeeded = null;
+          break;
       }
+
+      boolean onColor = false;
+      while (!onColor) {
+        wheelTurner.set(0.4);
+        ColorMatchResult result = colorMatcher.matchClosestColor(colorSensor.getColor());
+
+        if (result == colorMatcher.matchClosestColor(colorNeeded)) {
+          wheelTurner.stopMotor();
+          onColor = true;
+        }
+        System.out.print(colorSensor.getRed() + " " + colorSensor.getBlue() + " " + colorSensor.getGreen());
+      }
+
     }
   }
 
   @Override
   public void periodic() {
     if (colorDetectDebug) {
-      System.out.println(colorSensor.getRawColor());
+      System.out.println(colorSensor.getRed() + " " + colorSensor.getBlue() + " " + colorSensor.getGreen());
     }
   }
 }

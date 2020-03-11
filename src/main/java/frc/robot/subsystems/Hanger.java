@@ -2,45 +2,38 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.Constants;
-
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Hanger extends SubsystemBase {
-    
+
   private SpeedController hook = new WPI_TalonSRX(Constants.MOTOR_HOOK);
   private SpeedController spool = new WPI_TalonSRX(Constants.MOTOR_SPOOL);
 
+  public Hanger() {
 
-  public Hanger() 
-  {
-    
   }
 
-
-  public void extendHanger()
-  {
-    hook.set(Constants.kDrivetrainSpeedMultiplier);
-    spool.set(-1 * Constants.kDrivetrainSpeedMultiplier);
+  public void extendHanger() {
+    hook.set(Constants.kHangerSpeed);
+    spool.set(-1 * Constants.kHangerSpeed);
   }
 
-  public void stopHangerMotor()
-  {
+  public void stopHangerMotor() {
+    hook.set(0);
+    spool.set(0);
     hook.stopMotor();
     spool.stopMotor();
   }
 
-  public void retractHanger()
-  {
-    hook.set(-1 * Constants.kDrivetrainSpeedMultiplier);
-    spool.set(Constants.kDrivetrainSpeedMultiplier);
+  public void retractHanger() {
+    hook.set(-1 * Constants.kHangerSpeed);
+    spool.set(Constants.kHangerSpeed);
   }
 
   @Override
-  public void periodic() 
-  {
+  public void periodic() {
     // This method will be called once per scheduler run
   }
 }

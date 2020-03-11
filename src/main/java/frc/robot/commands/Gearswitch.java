@@ -1,23 +1,23 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Gearswitch extends CommandBase
 {
-    private final Pneumatics m_pneumatics;
+    private final DriveTrain m_driveTrain;
 
-    public Gearswitch(Pneumatics subsystem)
+    public Gearswitch(DriveTrain subsystem)
     {
-        m_pneumatics = subsystem;
+        m_driveTrain = subsystem;
 
-        addRequirements(m_pneumatics);
+        addRequirements(m_driveTrain);
     }
 
     @Override
     public void initialize()
     {
-        m_pneumatics.gearSwitch();
+        m_driveTrain.gearSwitch();
     }
 
     @Override
